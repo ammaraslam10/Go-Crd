@@ -1,0 +1,7 @@
+[07-Jul-2020 13:14:52 UTC] PHP Fatal error:  Uncaught Twilio\Exceptions\RestException: [HTTP 400] Unable to create record: Permission to send an SMS has not been enabled for the region indicated by the 'To' number: +18452181567. in /home/ybtxahpd/public_html/prowallet/twilio-php/src/Twilio/Version.php:88
+Stack trace:
+#0 /home/ybtxahpd/public_html/prowallet/twilio-php/src/Twilio/Version.php(227): Twilio\Version->exception(Object(Twilio\Http\Response), 'Unable to creat...')
+#1 /home/ybtxahpd/public_html/prowallet/twilio-php/src/Twilio/Rest/Api/V2010/Account/MessageList.php(66): Twilio\Version->create('POST', '/Accounts/AC5c1...', Array, Array)
+#2 /home/ybtxahpd/public_html/prowallet/twilio-php/src/Twilio/index.php(24): Twilio\Rest\Api\V2010\Account\MessageList->create('+18452181567', Object(Twilio\Values))
+#3 {main}
+  thrown in /home/ybtxahpd/public_html/prowallet/twilio-php/src/Twilio/Version.php on line 88
