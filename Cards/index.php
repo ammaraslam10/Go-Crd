@@ -14,7 +14,7 @@ $a = protect($_GET['a']);
 //echo '<script>alert("'.$a.'");</script>';
 switch($a) {
 	case "create-card": include("sources/create_card.php"); break;
-	case "admin": include("sources/"); break;
+	//case "admin": ("sources/"); break;
 
 	//case "notifications": include("sources/account/summary.php"); break;
 	case "login": include("sources/login.php"); break;

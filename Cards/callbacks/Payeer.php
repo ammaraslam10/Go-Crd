@@ -1,7 +1,7 @@
 <?php
 error_reporting(0);
 if (isset($_POST['m_operation_id']) && isset($_POST['m_sign'])) {
-	$m_operation_id = protect($_POST['m_operation_id')];
+	$m_operation_id = protect($_POST['m_operation_id']);
 	$m_operation_date = protect($_POST['m_operation_date']);
 	$m_orderid = protect($_POST['m_orderid']);
 	$m_amount = protect($_POST['m_amount']);
