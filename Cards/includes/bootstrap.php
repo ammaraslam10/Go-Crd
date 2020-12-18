@@ -19,6 +19,6 @@ include("class.template.php");
 //include("GoogleAuthenticator.php");
 include("version.php");
 
-$settings['url'] = 'http://localhost:8080/Cards/';
-$settings['url_assets'] = 'http://localhost:8080/Cards/assets/';
+$settings['url'] = 'http://localhost:9067/Go-Crd/Cards/';
+$settings['url_assets'] = 'http://localhost:9067/Go-Crd/Cards/assets/';
 ?>

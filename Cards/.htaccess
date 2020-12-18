@@ -4,7 +4,7 @@ RewriteBase /
 RewriteCond %{REQUEST_FILENAME} !^.*admin/index.php$
 RewriteRule ^admin/(.*)?$ Go-Crd/Cards/admin/index.php?a=$1 [L,QSA]
 
-RewriteRule ^(contacts|login|knowledge|register|payment|merchant|logout|notifications|create-card)?$ Cards/index.php?a=$1 [L,QSA]
+RewriteRule ^(contacts|login|knowledge|register|payment|merchant|logout|notifications|create-card)?$ Go-Crd/Cards/index.php?a=$1 [L,QSA]
 RewriteRule ^login/auth?$ index.php?a=login&type=auth [L,QSA]
 RewriteRule ^register/(personal|business)?$ index.php?a=register&type=$1 [L]
 RewriteRule ^password/reset?$ index.php?a=password&b=reset [L]

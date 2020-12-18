@@ -14,9 +14,10 @@ include("../includes/bootstrap.php");
 //if(checkAdminSession()) {
 //	include("sources/header.php");
 	$a = protect($_GET['a']);
+	//echo $a;
 	switch($a) {
 		case "test": include("test.php"); break;
-		case "hello": include("test2.php"); break;
+		case "hello": include("test.php"); break;
 
 		case "users": include("sources/users.php"); break;
 		case "disputes": include("sources/disputes.php"); break;
@@ -46,7 +47,7 @@ include("../includes/bootstrap.php");
 			session_destroy();
 			header("Location: $settings[url]");
 		break;
-		default: include("sources/dashboard.php");
+		default: include("TMP/dashboard.php");
 	}
 //	include("sources/footer.php");
 //} else {
