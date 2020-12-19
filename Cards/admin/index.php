@@ -17,7 +17,7 @@ include("../includes/bootstrap.php");
 	//echo $a;
 	switch($a) {
 		case "test": include("test.php"); break;
-		case "hello": include("test.php"); break;
+		case "super_admin": include("test.php"); break;
 
 		case "users": include("sources/users.php"); break;
 		case "disputes": include("sources/disputes.php"); break;

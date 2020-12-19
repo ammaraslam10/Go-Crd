@@ -35,10 +35,10 @@
 
         <!-- Stylesheets -->
         <!-- Bootstrap is included in its original form, unaltered -->
-        <link rel="stylesheet" href="<?php echo $settings['url_assets']; ?>css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="<?php echo $settings['url_assets']; ?>css/bootstrap.min.css">
 
         <!-- Related styles of various icon packs and plugins -->
-        <link rel="stylesheet" href="<?php echo $settings['url_assets']; ?>css/plugins.css">
+        <link rel="stylesheet" type="text/css" href="<?php echo $settings['url_assets']; ?>css/plugins.css">
 
         <!-- The main stylesheet of this template. All Bootstrap overwrites are defined in here -->
         <link rel="stylesheet" href="<?php echo $settings['url_assets']; ?>css/main.css">

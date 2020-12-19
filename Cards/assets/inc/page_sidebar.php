@@ -13,7 +13,7 @@
     <!-- Sidebar Brand -->
     <div id="sidebar-brand" class="themed-background">
         <a href="index.php" class="sidebar-title">
-            <i class="fa fa-cube"></i> <span class="sidebar-nav-mini-hide">App<strong>UI</strong></span>
+            <i class="fa fa-cube"></i> <span class="sidebar-nav-mini-hide">Go<strong>Crd</strong></span>
         </a>
     </div>
     <!-- END Sidebar Brand -->

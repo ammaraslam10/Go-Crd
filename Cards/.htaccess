@@ -1,6 +1,6 @@
 RewriteEngine on
 RewriteBase /
-
+AddType text/css .css
 RewriteCond %{REQUEST_FILENAME} !^.*admin/index.php$
 RewriteRule ^admin/(.*)?$ Go-Crd/Cards/admin/index.php?a=$1 [L,QSA]
 
@@ -34,3 +34,4 @@ RewriteRule ^account/logs/(.*)?$ index.php?a=account&b=logs&page=$1 [L]
 RewriteRule ^page/(.*)?$ index.php?a=page&prefix=$1 [L]
 RewriteRule ^knowledge/articles/(.*)?$ index.php?a=knowledge&b=articles&id=$1 [L]
 RewriteRule ^payment/(.*)?$ index.php?a=payment&hash=$1 [L]
+
