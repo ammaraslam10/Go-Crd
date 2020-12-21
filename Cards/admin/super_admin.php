@@ -1,6 +1,55 @@
-<?php include('/../assets/inc/config.php'); $template['header_link'] = 'WWELCOME'; ?>
+<?php include('/../assets/inc/config.php'); $template['header_link'] = 'DASHBOARD - SUPER ADMIN'; ?>
 <?php include('/../assets/inc/template_start.php'); ?>
-<?php include('/../assets/inc/page_head.php'); ?>
+<?php 
+$primary_nav = array(
+    array(
+        'name'  => 'Super Admin Dashboard',
+        'url'   => 'su',
+        'icon'  => 'gi gi-compass',
+        'active'=> true
+    ),
+    array(
+        'url'   => 'separator',
+    ),
+    array(
+        'name'  => 'Create New Card',
+        'url'   => 'create-card',
+        'icon'  => 'gi gi-compass'
+    ),
+    array(
+        'url'   => 'separator',
+    ),
+    array(
+        'name'  => 'User Information',
+        'icon'  => 'fa fa-rocket',
+        'url'   => 'user_information',
+    ),
+    array(
+        'name'  => 'Admin Information',
+        'icon'  => 'fa fa-rocket',
+        'url'   => 'admin_information',
+    ),
+    array(
+        'name'  => 'Direct User Card Information',
+        'icon'  => 'fa fa-rocket',
+        'url'   => 'direct_user_card_information',
+    ),
+    array(
+        'name'  => 'Admin User Card Information',
+        'icon'  => 'fa fa-rocket',
+        'url'   => 'admin_user_card_information',
+    ),
+    array(
+        'url'   => 'separator',
+    ),
+    array(
+        'name'  => 'Edit Profile',
+        'icon'  => 'fa fa-rocket',
+        'url'   => 'edit_profile',
+    ),
+    
+);
+include('/../assets/inc/page_head.php'); ?>
 
 <!-- Page content -->
 <div id="page-content">
@@ -100,7 +149,7 @@
                     Featured Author
                 </div>
                 <div class="widget-content border-bottom text-center themed-background-muted">
-                    <img src="<php echo $settings['url_assets']; ?>img/placeholders/avatars/avatar13@2x.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar-2x">
+                    <img src="<?php echo $settings['url_assets']; ?>img/placeholders/avatars/avatar13@2x.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar-2x">
                     <h2 class="widget-heading h3 text-dark">Anna Wigren</h2>
                     <span class="text-muted">
                         <strong>Logo Designer</strong>, Sweden
@@ -162,21 +211,21 @@
                     Project
                 </div>
                 <a href="javascript:void(0)" class="widget-content themed-background-muted text-right clearfix">
-                    <img src=""<php echo $settings['url_assets']; ?>img/placeholders/avatars/avatar6.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar pull-left">
+                    <img src="<?php echo $settings['url_assets']; ?>img/placeholders/avatars/avatar6.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar pull-left">
                     <h2 class="widget-heading h3 text-muted">Logo</h2>
                     <div class="progress progress-striped progress-mini active">
                         <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 85%"></div>
                     </div>
                 </a>
                 <a href="javascript:void(0)" class="widget-content themed-background-muted border-top text-right clearfix">
-                    <img src="<php echo $settings['url_assets']; ?>img/placeholders/avatars/avatar2.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar pull-left">
+                    <img src="<?php echo $settings['url_assets']; ?>img/placeholders/avatars/avatar2.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar pull-left">
                     <h2 class="widget-heading h3 text-muted">Icon Pack</h2>
                     <div class="progress progress-striped progress-mini active">
                         <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%"></div>
                     </div>
                 </a>
                 <a href="javascript:void(0)" class="widget-content themed-background-muted border-top text-right clearfix">
-                    <img src="<php echo $settings['url_assets']; ?>img/placeholders/avatars/avatar11.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar pull-left">
+                    <img src="<?php echo $settings['url_assets']; ?>img/placeholders/avatars/avatar11.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar pull-left">
                     <h2 class="widget-heading h3 text-muted">Design</h2>
                     <div class="progress progress-striped progress-mini active">
                         <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100" style="width: 55%"></div>
@@ -236,7 +285,7 @@
                     Story
                 </div>
                 <div class="widget-image">
-                    <img src="<php echo $settings['url_assets']; ?>img/placeholders/photos/photo9.jpg" alt="image">
+                    <img src="<?php echo $settings['url_assets']; ?>img/placeholders/photos/photo9.jpg" alt="image">
                     <div class="widget-image-content">
                         <h2 class="widget-heading"><a href="page_ready_article.php" class="text-light"><strong>The trip that changed my life</strong></a></h2>
                         <h3 class="widget-heading text-light-op h4">It changed the way I think</h3>

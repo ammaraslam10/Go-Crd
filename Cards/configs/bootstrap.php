@@ -1,8 +1,4 @@
 <?php
-// Crypto Wallet
-// Author: InterWebDev
-// Website: https://iwebsoft.info
-// Support: interwebbg@gmail.com
 if(!defined('PWV1_INSTALLED')){
     header("HTTP/1.0 404 Not Found");
 	exit;
@@ -18,6 +14,7 @@ if ($db->connect_errno) {
 }
 $db->set_charset("utf8");
 
-$settingsQuery = $db->query("SELECT * FROM pw_settings ORDER BY id DESC LIMIT 1");
+$settingsQuery = $db->query("SELECT * FROM settings ORDER BY id DESC LIMIT 1");
 $settings = $settingsQuery->fetch_assoc();
+//echo $settings['url'];
 ?>

@@ -13,7 +13,7 @@
     <!-- Sidebar Brand -->
     <div id="sidebar-brand" class="themed-background">
         <a href="index.php" class="sidebar-title">
-            <i class="fa fa-cube"></i> <span class="sidebar-nav-mini-hide">App<strong>UI</strong></span>
+            <i class="fa fa-cube"></i> <span class="sidebar-nav-mini-hide">Go<strong>Crd</strong></span>
         </a>
     </div>
     <!-- END Sidebar Brand -->
@@ -32,7 +32,7 @@
 
                     // Get 1st level link's vital info
                     $url        = (isset($link['url']) && $link['url']) ? $link['url'] : '#';
-                    $active     = (isset($link['url']) && ($template['active_page'] == $link['url'])) ? ' active' : '';
+                    $active     = ($link['active']==true) ? ' active' : '';
                     $icon       = (isset($link['icon']) && $link['icon']) ? '<i class="' . $link['icon'] . ' sidebar-nav-icon"></i>' : '';
 
                     // Check if the link has a submenu

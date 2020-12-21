@@ -10,7 +10,7 @@
 
 /* Template variables */
 $template = array(
-    'name'              => 'AppUI',
+    'name'              => 'GoCrd',
     'version'           => '2.9',
     'author'            => 'pixelcave',
     'robots'            => 'noindex, nofollow',

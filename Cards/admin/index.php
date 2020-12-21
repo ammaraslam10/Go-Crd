@@ -7,19 +7,20 @@ if(file_exists("./install.php")) {
 define('PWV1_INSTALLED',TRUE);
 ob_start();
 session_start();
+//error_reporting(E_ALL);
 error_reporting(0);
-//include("../configs/bootstrap.php");
+include("../configs/bootstrap.php");
 include("../includes/bootstrap.php");
 
 //if(checkAdminSession()) {
 //	include("sources/header.php");
 	$a = protect($_GET['a']);
+	//echo $a;
 	switch($a) {
-		case "test": include("test.php"); break;
-		case "hello": include("test2.php"); break;
+		case "su": include("super_admin.php"); break;
 
-		case "users": include("sources/users.php"); break;
-		case "disputes": include("sources/disputes.php"); break;
+		case "user_information": include("user_info.php"); break;
+		case "admin_information": include("admin_info.php"); break;
 		case "deposit_methods": include("sources/deposit_methods.php"); break;
 		case "deposits": include("sources/deposits.php"); break;
 		case "withdrawal_methods": include("sources/withdrawal_methods.php"); break;
