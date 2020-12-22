@@ -7,8 +7,8 @@ if(file_exists("./install.php")) {
 define('PWV1_INSTALLED',TRUE);
 ob_start();
 session_start();
-//error_reporting(E_ALL);
 error_reporting(0);
+//error_reporting(E_ALL);
 include("../configs/bootstrap.php");
 include("../includes/bootstrap.php");
 
@@ -21,7 +21,7 @@ include("../includes/bootstrap.php");
 
 		case "user_information": include("user_info.php"); break;
 		case "admin_information": include("admin_info.php"); break;
-		case "deposit_methods": include("sources/deposit_methods.php"); break;
+		case "direct_user_card_information": include("usercard_info.php"); break;
 		case "deposits": include("sources/deposits.php"); break;
 		case "withdrawal_methods": include("sources/withdrawal_methods.php"); break;
 		case "sending_methods": include("sources/sending_methods.php"); break;

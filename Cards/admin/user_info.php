@@ -1,4 +1,5 @@
-<?php include('/../assets/inc/config.php'); $template['header_link'] = 'USER INFORMATION'; ?>
+<?php include('/../assets/inc/config.php'); $template['header_link'] = 'USER INFORMATION'; $type='user';?>
+<?php include('excel.php');?>
 <?php include('/../assets/inc/template_start.php'); ?>
 <?php 
 $primary_nav = array(
@@ -54,12 +55,14 @@ include('/../assets/inc/page_head.php'); ?>
     if(isset($_POST['delete_user'])){
         $id = $_POST['id'];
         $query = $db->query("DELETE FROM user where id='$id'");
+        $query = $db->query("DELETE FROM card where creator='$id' and is_admin=0 ");
     }
     if(isset($_POST['change_status'])){
         $id = $_POST['id'];
         $new_status = $_POST['new_status'];
         $query = $db->query("UPDATE user SET is_active='$new_status' where id='$id'");
     }
+    
 ?>
 <!-- Page content -->
 <div id="page-content">
@@ -98,17 +101,19 @@ include('/../assets/inc/page_head.php'); ?>
                 </thead>
                 <tbody>
                     <?php
-                    $labels['1']['class'] = "label-success";
-                    $labels['1']['text'] = "Active";
-                    $labels['0']['class'] = "label-danger";
-                    $labels['0']['text'] = "Disabled";
-                    ?>
-                    <?php
-                    global $db; 
-                    $query = $db->query("SELECT * FROM user ORDER BY id ASC");
-                    $i=1;
-                    while($row = $query->fetch_assoc()) {
+                        $labels['1']['class'] = "label-success";
+                        $labels['1']['text'] = "Active";
+                        $labels['0']['class'] = "label-danger";
+                        $labels['0']['text'] = "Disabled";
                         ?>
+                        <?php
+                        global $db; 
+                        $query = $db->query("SELECT * FROM user ORDER BY id ASC");
+                        $i=1;
+                        $items = array();
+                        while($row = $query->fetch_assoc()) {
+                            $items[] = $row;
+                    ?>
                     <tr>
                         <td class="text-center"><?php echo $i; ?></td>
                         <td><?php echo $row['email'];?></td>
@@ -132,11 +137,19 @@ include('/../assets/inc/page_head.php'); ?>
                         </td>
                     </tr>
                     <?php 
-                    ++$i;
-                    } ?>
+                    }
+                    //Check the export button is pressed or not
+                    
+                    ?>
                 </tbody>
             </table>
         </div>
+        <br>
+        <form action="" method="post" id="excel_form">
+            <div class="input-group">
+                <button name="export" class="btn btn-primary" id="create_excel"><i class="fa fa-cloud-download"></i>  Save As Excel</button>
+            </div>
+        </form>
     </div>
     <!-- END Datatables Block -->
 </div>
@@ -151,5 +164,16 @@ include('/../assets/inc/page_head.php'); ?>
 <!-- Load and execute javascript code used only in this page -->
 <script src="<?php echo $settings['url_assets'] ?>js/pages/uiTables.js"></script>
 <script>$(function(){ UiTables.init(); });</script>
-
+<script>
+    /*$(document).ready(function(){  
+        $('#create_excel').click(function(){
+            var excel_data = $('.table-responsive').html();
+            $('#excel_data').val(excel_data);  
+            //var page = "excel.php?data=" + excel_data;  
+            //window.location = page;
+            console.log(excel_data);
+            $('#excel_form').submit();  
+        });  
+    }); */
+</script>
 <?php include('\..\assets\inc\template_end.php'); ?>

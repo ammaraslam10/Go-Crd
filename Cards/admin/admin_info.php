@@ -1,4 +1,5 @@
-<?php include('/../assets/inc/config.php'); $template['header_link'] = 'ADMIN INFORMATION'; ?>
+<?php include('/../assets/inc/config.php'); $template['header_link'] = 'ADMIN INFORMATION'; $type='admin';?>
+<?php include('excel.php')?>
 <?php include('/../assets/inc/template_start.php'); ?>
 <?php 
 $primary_nav = array(
@@ -57,6 +58,7 @@ include('/../assets/inc/page_head.php'); ?>
     if(isset($_POST['delete_user'])){
         $id = $_POST['id'];
         $query = $db->query("DELETE FROM admin where id='$id'");
+        $query = $db->query("DELETE FROM card where creator='$id' and is_admin=1 ");
     }
     if(isset($_POST['change_status'])){
         $id = $_POST['id'];
@@ -140,6 +142,12 @@ include('/../assets/inc/page_head.php'); ?>
                 </tbody>
             </table>
         </div>
+        <br>
+        <form action="" method="post" id="excel_form">
+            <div class="input-group">
+                <button name="export" class="btn btn-primary" id="create_excel"><i class="fa fa-cloud-download"></i>  Save As Excel</button>
+            </div>
+        </form>
     </div>
     <!-- END Datatables Block -->
 </div>
