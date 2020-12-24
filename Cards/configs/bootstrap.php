@@ -16,5 +16,5 @@ $db->set_charset("utf8");
 
 $settingsQuery = $db->query("SELECT * FROM settings ORDER BY id DESC LIMIT 1");
 $settings = $settingsQuery->fetch_assoc();
-//echo $settings['url'];
+//print_r($settings);
 ?>
