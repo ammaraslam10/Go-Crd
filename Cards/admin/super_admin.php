@@ -50,7 +50,36 @@ $primary_nav = array(
     
 );
 include('/../assets/inc/page_head.php'); ?>
+<?php
+    $file_url = '../uploads/su';
+    $to_search = '../uploads/su';
+    $img_url = get_image($file_url,$to_search);
 
+    global $db; 
+    $query = $db->query("SELECT * FROM card ORDER BY id ASC");
+    $user_cards = 0;
+    $admin_cards = 0;
+    $acive_cards = 0;
+    $inactive_cards = 0;
+    while($row = $query->fetch_assoc()) {
+        if($row['is_admin'] == 0){
+            $user_cards++;
+        }
+        if($row['is_admin'] == 1){
+            $admin_cards++;
+        }
+        if($row['card_status'] == 0){
+            $inactive_cards++;
+        }
+        if($row['card_status'] == 1){
+            $acive_cards++;
+        }
+    }
+    $query = $db->query("SELECT * FROM admin ORDER BY id ASC");
+    $num_of_admins = $query->num_rows;
+    $query = $db->query("SELECT * FROM user ORDER BY id ASC");
+    $num_of_users = $query->num_rows;
+?>
 <!-- Page content -->
 <div id="page-content">
     <!-- First Row -->
@@ -60,12 +89,12 @@ include('/../assets/inc/page_head.php'); ?>
             <a href="javascript:void(0)" class="widget">
                 <div class="widget-content widget-content-mini text-right clearfix">
                     <div class="widget-icon pull-left themed-background">
-                        <i class="gi gi-cardio text-light-op"></i>
+                        <i class="gi gi-credit_card text-light-op"></i>
                     </div>
                     <h2 class="widget-heading h3">
-                        <strong><span data-toggle="counter" data-to="2835"></span></strong>
+                        <strong><span data-toggle="counter" data-to="<?php echo $user_cards;?>"></span></strong>
                     </h2>
-                    <span class="text-muted">SALES</span>
+                    <span class="text-muted">USER CARDS</span>
                 </div>
             </a>
         </div>
@@ -73,12 +102,12 @@ include('/../assets/inc/page_head.php'); ?>
             <a href="javascript:void(0)" class="widget">
                 <div class="widget-content widget-content-mini text-right clearfix">
                     <div class="widget-icon pull-left themed-background-success">
-                        <i class="gi gi-user text-light-op"></i>
+                        <i class="fa fa-credit-card-alt text-light-op"></i>
                     </div>
                     <h2 class="widget-heading h3 text-success">
-                        <strong>+ <span data-toggle="counter" data-to="2862"></span></strong>
+                        <strong><span data-toggle="counter" data-to="<?php echo $admin_cards;?>"></span></strong>
                     </h2>
-                    <span class="text-muted">NEW USERS</span>
+                    <span class="text-muted">ADMIN CARDS</span>
                 </div>
             </a>
         </div>
@@ -86,12 +115,12 @@ include('/../assets/inc/page_head.php'); ?>
             <a href="javascript:void(0)" class="widget">
                 <div class="widget-content widget-content-mini text-right clearfix">
                     <div class="widget-icon pull-left themed-background-warning">
-                        <i class="gi gi-briefcase text-light-op"></i>
+                        <i class="fa fa-user text-light-op"></i>
                     </div>
                     <h2 class="widget-heading h3 text-warning">
-                        <strong>+ <span data-toggle="counter" data-to="75"></span></strong>
+                        <strong><span data-toggle="counter" data-to="<?php echo $num_of_users;?>"></span></strong>
                     </h2>
-                    <span class="text-muted">PROJECTS</span>
+                    <span class="text-muted">TOTAL USERS</span>
                 </div>
             </a>
         </div>
@@ -99,12 +128,12 @@ include('/../assets/inc/page_head.php'); ?>
             <a href="javascript:void(0)" class="widget">
                 <div class="widget-content widget-content-mini text-right clearfix">
                     <div class="widget-icon pull-left themed-background-danger">
-                        <i class="gi gi-wallet text-light-op"></i>
+                        <i class="fa fa-users text-light-op"></i>
                     </div>
                     <h2 class="widget-heading h3 text-danger">
-                        <strong>$ <span data-toggle="counter" data-to="5820"></span></strong>
+                        <strong><span data-toggle="counter" data-to="<?php echo $num_of_admins;?>"></span></strong>
                     </h2>
-                    <span class="text-muted">EARNINGS</span>
+                    <span class="text-muted">TOTAL ADMINS</span>
                 </div>
             </a>
         </div>
@@ -143,17 +172,14 @@ include('/../assets/inc/page_head.php'); ?>
         </div>
         <div class="col-sm-6 col-lg-4">
             <!-- Stats User Widget -->
-            <a href="page_ready_profile.php" class="widget">
+            <a href="edit_profile" class="widget">
                 <div class="widget-content border-bottom text-dark">
-                    <span class="pull-right text-muted">This week</span>
-                    Featured Author
+                    <span class="pull-right text-muted">Edit Profile</span>
+                    Super Admin Profile
                 </div>
                 <div class="widget-content border-bottom text-center themed-background-muted">
-                    <img src="<?php echo $settings['url_assets']; ?>img/placeholders/avatars/avatar13@2x.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar-2x">
-                    <h2 class="widget-heading h3 text-dark">Anna Wigren</h2>
-                    <span class="text-muted">
-                        <strong>Logo Designer</strong>, Sweden
-                    </span>
+                    <img src="<?php echo $img_url;?>" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar-2x">
+                    <h2 class="widget-heading h3 text-dark"><?php echo $settings['su_name'];?></h2>
                 </div>
                 <div class="widget-content widget-content-full-top-bottom">
                     <div class="row text-center">

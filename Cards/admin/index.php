@@ -11,6 +11,9 @@ error_reporting(0);
 //error_reporting(E_ALL);
 include("../configs/bootstrap.php");
 include("../includes/bootstrap.php");
+$file_url = '../uploads/su';
+$to_search = '../uploads/su';
+$img_url = get_image($file_url,$to_search);
 
 //if(checkAdminSession()) {
 //	include("sources/header.php");

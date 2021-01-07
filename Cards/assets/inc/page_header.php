@@ -65,7 +65,7 @@
         <!-- User Dropdown -->
         <li class="dropdown">
             <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown">
-                <img src="<?php echo $settings['url_assets']; ?>img/placeholders/avatars/avatar9.jpg" alt="avatar">
+                <img src="<?php echo $img_url;?>" alt="avatar">
             </a>
             <ul class="dropdown-menu dropdown-menu-right">
                 <li class="dropdown-header">

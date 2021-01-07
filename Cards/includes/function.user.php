@@ -5,6 +5,37 @@ if(!defined('PWV1_INSTALLED')){
     header("HTTP/1.0 404 Not Found");
 	exit;
 }
+function get_image($file_url,$to_search){
+	$found_image = false;
+	clearstatcache();
+	//echo "targer is:".$to_search;
+	if (file_exists($to_search.".jpg")) {
+		$img_url = $settings['url'].$file_url.'.jpg';
+		$file= $to_search.".jpg";
+		$jpg_time = filemtime($to_search.".jpg");
+		$found_image = true;
+		//echo "han jpg h";
+	}
+		if (file_exists($to_search.".png") && (filemtime($to_search.".png") > $jpg_time)) {
+		$img_url = $settings['url'].$file_url.'.png';
+		$png_time = filemtime($to_search.".png");
+		$file= $to_search.".png";
+		$found_image = true;
+		//echo "han jpg2 h";
+	}
+	if (file_exists($to_search.".jpeg") && (filemtime($to_search.".jpeg") > $jpg_time) && (filemtime($to_search.".jpeg") > $png_time)) {
+		$img_url = $settings['url'].$file_url.'.jpeg';
+		$file= $to_search.".jpeg";
+		$found_image = true;
+		//echo "han jpg3 h";
+	}
+	else if(!$found_image)
+	{
+		$img_url = $settings['url'].'uploads/default.jpg';
+	}
+	$img_url= $img_url."?t=".time();
+	return $img_url;
+}
 
 function PW_GetDocumentPrompt(){
     global $settings;

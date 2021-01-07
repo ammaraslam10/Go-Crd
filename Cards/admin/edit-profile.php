@@ -31,12 +31,12 @@ $primary_nav = array(
         'url'   => 'admin_information',
     ),
     array(
-        'name'  => 'Direct User Card Information',
+        'name'  => 'User Card Information',
         'icon'  => 'fa fa-rocket',
         'url'   => 'direct_user_card_information',
     ),
     array(
-        'name'  => 'Admin User Card Information',
+        'name'  => 'Admin Card Information',
         'icon'  => 'fa fa-rocket',
         'url'   => 'admin_user_card_information',
     ),
@@ -138,36 +138,10 @@ include('/../assets/inc/page_head.php');?>
                         <div class="text-center">
                             <div class="figure-profile shadow my-4">
                             <?php
-                                clearstatcache();
-                                $file_url = 'uploads/su';
+                                $file_url = '../uploads/su';
                                 $to_search = '../uploads/su';
-                                $found_image = false;
-                                //echo "targer is:".$to_search;
-                                if (file_exists($to_search.".jpg")) {
-                                    $img_url = $settings['url'].$file_url.'.jpg';
-                                    $file= $to_search.".jpg";
-                                    $jpg_time = filemtime($to_search.".jpg");
-                                    $found_image = true;
-                                    //echo "han jpg h";
-                                }
-                                    if (file_exists($to_search.".png") && (filemtime($to_search.".png") > $jpg_time)) {
-                                    $img_url = $settings['url'].$file_url.'.png';
-                                    $png_time = filemtime($to_search.".png");
-                                    $file= $to_search.".png";
-                                    $found_image = true;
-                                    //echo "han jpg2 h";
-                                }
-                                if (file_exists($to_search.".jpeg") && (filemtime($to_search.".jpeg") > $jpg_time) && (filemtime($to_search.".jpeg") > $png_time)) {
-                                    $img_url = $settings['url'].$file_url.'.jpeg';
-                                    $file= $to_search.".jpeg";
-                                    $found_image = true;
-                                    //echo "han jpg3 h";
-                                }
-                                else if(!$found_image)
-                                {
-                                    $img_url = $settings['url'].'uploads/default.jpg';
-                                }
-                                $img_url= $img_url."?t=".time();
+                                $img_url = get_image($file_url,$to_search);
+                                
                             ?>
                                 <div class="widget-image widget-image-sm" style="height: 167px;background-color: white;">
                                     <div class="widget-image-content text-center" style="
@@ -180,7 +154,7 @@ include('/../assets/inc/page_head.php');?>
                                         </div>
                                     </div>
                                 </div>
-                                <!--<figure><img id="dp" src="<?php echo $img_url;?>" alt=""></figure>-->
+                                <!--<figure><img id="dp" src="<?php //echo $img_url;?>" alt=""></figure>-->
                                 
                             </div>
                         </div>
