@@ -34,12 +34,12 @@ $primary_nav = array(
         'url'   => 'separator',
     ),
     array(
-        'name'  => 'Direct User Card Information',
+        'name'  => 'User Card Information',
         'icon'  => 'fa fa-rocket',
         'url'   => 'direct_user_card_information',
     ),
     array(
-        'name'  => 'Admin User Card Information',
+        'name'  => 'Admin Card Information',
         'icon'  => 'fa fa-rocket',
         'url'   => 'admin_user_card_information',
     ),
