@@ -32,13 +32,13 @@ $primary_nav = array(
         'url'   => 'admin_information',
     ),
     array(
-        'name'  => 'Direct User Card Information',
+        'name'  => 'User Card Information',
         'icon'  => 'fa fa-rocket',
         'url'   => 'direct_user_card_information',
         'active'=> true
     ),
     array(
-        'name'  => 'Admin User Card Information',
+        'name'  => 'Admin Card Information',
         'icon'  => 'fa fa-rocket',
         'url'   => 'admin_user_card_information',
     ),

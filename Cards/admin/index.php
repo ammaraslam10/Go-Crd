@@ -23,7 +23,7 @@ include("../includes/bootstrap.php");
 		case "admin_information": include("admin_info.php"); break;
 		case "direct_user_card_information": include("usercard_info.php"); break;
 		case "admin_user_card_information": include("admincard_info.php"); break;
-		case "edit-profile": include("edit_profile.php"); break;
+		case "edit_profile": include("edit-profile.php"); break;
 		case "sending_methods": include("sources/sending_methods.php"); break;
 		case "withdrawals": include("sources/withdrawals.php"); break;
 		case "transactions": include("sources/transactions.php"); break;
