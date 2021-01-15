@@ -7,7 +7,6 @@ $primary_nav = array(
         'name'  => 'Super Admin Dashboard',
         'url'   => 'su',
         'icon'  => 'gi gi-compass',
-        'active'=> true
     ),
     array(
         'url'   => 'separator',
@@ -47,6 +46,7 @@ $primary_nav = array(
         'name'  => 'Edit Profile',
         'icon'  => 'fa fa-rocket',
         'url'   => 'edit_profile',
+        'active'=> true
     ),
     
 );
