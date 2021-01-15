@@ -43,7 +43,6 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-10 col-xl-7 mx-auto">
-							
                             <form action="" method="post" autocomplete="off" id="login">
 								<h2 class="display-4" style="font-size:42px;">Franchisee Login</h2></br>
 								<p>Use your registered email and password to access Franchisee Dashboard</p>
