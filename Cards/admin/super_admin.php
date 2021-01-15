@@ -59,8 +59,12 @@ include('/../assets/inc/page_head.php'); ?>
     $query = $db->query("SELECT * FROM card ORDER BY id ASC");
     $user_cards = 0;
     $admin_cards = 0;
-    $acive_cards = 0;
+    $active_cards = 0;
     $inactive_cards = 0;
+    $trial_cards = 0;
+    $total_earning = 0;
+    $monthly_price = $settings['monthly_price'];
+    $yearly_price = $settings['yearly_price'];
     while($row = $query->fetch_assoc()) {
         if($row['is_admin'] == 0){
             $user_cards++;
@@ -72,7 +76,16 @@ include('/../assets/inc/page_head.php'); ?>
             $inactive_cards++;
         }
         if($row['card_status'] == 1){
-            $acive_cards++;
+            $active_cards++;
+        }
+        if($row['subscription_type'] == 0){
+            $trial_cards++;
+        }
+        if($row['subscription_type'] == 1){
+            $total_earning+=$monthly_price;
+        }
+        if($row['subscription_type'] == 2){
+            $total_earning+=$yearly_price;
         }
     }
     $query = $db->query("SELECT * FROM admin ORDER BY id ASC");
@@ -184,10 +197,10 @@ include('/../assets/inc/page_head.php'); ?>
                 <div class="widget-content widget-content-full-top-bottom">
                     <div class="row text-center">
                         <div class="col-xs-6 push-inner-top-bottom border-right">
-                            <h3 class="widget-heading"><i class="gi gi-briefcase text-dark push-bit"></i> <br><small>35 Projects</small></h3>
+                            <h3 class="widget-heading"><i class="gi gi-credit_card text-dark push-bit"></i> <br><small><?php echo $trial_cards;?> Trial Cards</small></h3>
                         </div>
                         <div class="col-xs-6 push-inner-top-bottom">
-                            <h3 class="widget-heading"><i class="gi gi-heart_empty text-dark push-bit"></i> <br><small>5.3k Likes</small></h3>
+                            <h3 class="widget-heading"><i class="gi gi-usd text-dark push-bit"></i> <br><small>$<?php echo $total_earning;?> Earned Overall</small></h3>
                         </div>
                     </div>
                 </div>
@@ -198,26 +211,26 @@ include('/../assets/inc/page_head.php'); ?>
             <div class="row">
                 <div class="col-xs-6">
                     <a href="javascript:void(0)" class="widget">
-                        <div class="widget-content themed-background-info text-light-op text-center">
+                        <div class="widget-content themed-background-success text-light-op text-center">
                             <div class="widget-icon">
-                                <i class="fa fa-facebook"></i>
+                                <i class="fa fa-credit-card"></i>
                             </div>
                         </div>
                         <div class="widget-content text-dark text-center">
-                            <strong>98k</strong><br>Followers
+                            <strong><?php echo $active_cards;?></strong><br>Active Cards
                         </div>
                     </a>
                 </div>
                 <div class="col-xs-6">
-                    <a href="javascript:void(0)" class="widget">
+                    <a href="inactive_cards" class="widget">
                         <div class="widget-content themed-background-danger text-light-op text-center">
                             <div class="widget-icon">
-                                <i class="fa fa-database"></i>
+                                <i class="fa fa-credit-card-alt"></i>
                             </div>
                         </div>
                         <div class="widget-content text-dark text-center">
-                            <strong>15</strong><br>
-                            Active Servers
+                            <strong><?php echo $inactive_cards;?></strong><br>
+                            Inactive Cards
                         </div>
                     </a>
                 </div>
@@ -228,113 +241,6 @@ include('/../assets/inc/page_head.php'); ?>
     <!-- END Second Row -->
 
     <!-- Third Row -->
-    <div class="row">
-        <div class="col-sm-4">
-            <!-- Project Widget -->
-            <div class="widget">
-                <div class="widget-content border-bottom">
-                    <span class="pull-right text-muted">60%</span>
-                    Project
-                </div>
-                <a href="javascript:void(0)" class="widget-content themed-background-muted text-right clearfix">
-                    <img src="<?php echo $settings['url_assets']; ?>img/placeholders/avatars/avatar6.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar pull-left">
-                    <h2 class="widget-heading h3 text-muted">Logo</h2>
-                    <div class="progress progress-striped progress-mini active">
-                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" style="width: 85%"></div>
-                    </div>
-                </a>
-                <a href="javascript:void(0)" class="widget-content themed-background-muted border-top text-right clearfix">
-                    <img src="<?php echo $settings['url_assets']; ?>img/placeholders/avatars/avatar2.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar pull-left">
-                    <h2 class="widget-heading h3 text-muted">Icon Pack</h2>
-                    <div class="progress progress-striped progress-mini active">
-                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%"></div>
-                    </div>
-                </a>
-                <a href="javascript:void(0)" class="widget-content themed-background-muted border-top text-right clearfix">
-                    <img src="<?php echo $settings['url_assets']; ?>img/placeholders/avatars/avatar11.jpg" alt="avatar" class="img-circle img-thumbnail img-thumbnail-avatar pull-left">
-                    <h2 class="widget-heading h3 text-muted">Design</h2>
-                    <div class="progress progress-striped progress-mini active">
-                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100" style="width: 55%"></div>
-                    </div>
-                </a>
-                <div class="widget-content widget-content-full border-top">
-                    <div class="row text-center">
-                        <div class="col-xs-6 push-inner-top-bottom border-right">
-                            <i class="fa fa-check-circle-o"></i> On Time
-                        </div>
-                        <div class="col-xs-6 push-inner-top-bottom">
-                            <i class="fa fa-clock-o"></i> 17 Days
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- END Project Widget -->
-        </div>
-        <div class="col-sm-4">
-            <!-- Statistics Widget -->
-            <div class="widget">
-                <div class="widget-content border-bottom">
-                    <span class="pull-right text-muted"><i class="fa fa-check"></i></span>
-                    Weekly Sales
-                </div>
-                <div class="widget-content border-bottom themed-background-muted text-center">
-                    <span id="widget-dashchart-sales">12,15,14,18,16,15,16,17</span>
-                </div>
-                <div class="widget-content widget-content-full-top-bottom border-bottom">
-                    <div class="row text-center">
-                        <div class="col-xs-6 push-inner-top-bottom border-right">
-                            <h3 class="widget-heading"><i class="gi gi-book_open text-dark push"></i> <br><small>123 Total Sales</small></h3>
-                        </div>
-                        <div class="col-xs-6 push-inner-top-bottom">
-                            <h3 class="widget-heading"><i class="gi gi-user_add text-dark push"></i> <br><small>+10% Clients</small></h3>
-                        </div>
-                    </div>
-                </div>
-                <div class="widget-content widget-content-full">
-                    <div class="row text-center">
-                        <div class="col-xs-6 push-inner-top-bottom border-right">
-                            <h3 class="widget-heading"><i class="gi gi-briefcase text-dark push"></i> <br><small>5 Products</small></h3>
-                        </div>
-                        <div class="col-xs-6 push-inner-top-bottom">
-                            <h3 class="widget-heading"><i class="gi gi-truck text-dark push"></i> <br><small>10 Deliveries</small></h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- END Statistics Widget -->
-        </div>
-        <div class="col-sm-4">
-            <!-- Story Widget -->
-            <div class="widget">
-                <div class="widget-content">
-                    <span class="pull-right text-muted">Featured</span>
-                    Story
-                </div>
-                <div class="widget-image">
-                    <img src="<?php echo $settings['url_assets']; ?>img/placeholders/photos/photo9.jpg" alt="image">
-                    <div class="widget-image-content">
-                        <h2 class="widget-heading"><a href="page_ready_article.php" class="text-light"><strong>The trip that changed my life</strong></a></h2>
-                        <h3 class="widget-heading text-light-op h4">It changed the way I think</h3>
-                    </div>
-                    <i class="gi gi-airplane"></i>
-                </div>
-                <div class="widget-content widget-content-full text-dark">
-                    <div class="row text-center">
-                        <div class="col-xs-4 push-inner-top-bottom border-right">
-                            <i class="fa fa-heart-o"></i> 9.5k
-                        </div>
-                        <div class="col-xs-4 push-inner-top-bottom border-right">
-                            <i class="fa fa-eye"></i> 76k
-                        </div>
-                        <div class="col-xs-4 push-inner-top-bottom">
-                            <i class="fa fa-share-alt"></i> 7.2k
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- END Story Widget -->
-        </div>
-    </div>
     <!-- END Third Row -->
 </div>
 <!-- END Page Content -->

@@ -130,7 +130,7 @@ include('/../assets/inc/page_head.php'); ?>
                         <td><?php echo $row['total_cards'];?></td>
                         <td><?php echo $row['date'];?></td>
                         <td class="text-center">
-                            <form action="" method="post">
+                            <form action="" method="post" onsubmit="return confirm('Do you really want to delete this admin?');">
                                 <button name="delete_user" value="delete_user" data-toggle="tooltip" title="Delete User" class="btn btn-effect-ripple btn-xs btn-danger"><i class="fa fa-times"></i></button>
                                 <input type="hidden" name="id" value="<?php echo $row['id'];?>">
                             </form>
@@ -145,9 +145,11 @@ include('/../assets/inc/page_head.php'); ?>
         <br>
         <form action="" method="post" id="excel_form">
             <div class="input-group">
-                <button name="export" class="btn btn-primary" id="create_excel"><i class="fa fa-cloud-download"></i>  Save As Excel</button>
+                <button name="export" class="btn btn-primary" id="create_excel" style="margin-right: 10px;"><i class="fa fa-cloud-download"></i>  Save As Excel</button>
+                <a href="create_admin" class="btn btn-success"><i class="fa fa-user-plus"></i>  Create Admin</a>
             </div>
         </form>
+        
     </div>
     <!-- END Datatables Block -->
 </div>

@@ -128,7 +128,7 @@
 
             <!-- Color Themes -->
             <!-- Preview a theme on a page functionality can be found in js/app.js - colorThemePreview() -->
-            <div class="sidebar-section sidebar-nav-mini-hide">
+            <!--<div class="sidebar-section sidebar-nav-mini-hide">
                 <div class="sidebar-separator push">
                     <i class="fa fa-ellipsis-h"></i>
                 </div>
@@ -267,7 +267,7 @@
                         </a>
                     </li>
                 </ul>
-            </div>
+            </div>-->
             <!-- END Color Themes -->
         </div>
         <!-- END Sidebar Content -->
@@ -275,7 +275,7 @@
     <!-- END Wrapper for scrolling functionality -->
 
     <!-- Sidebar Extra Info -->
-    <div id="sidebar-extra-info" class="sidebar-content sidebar-nav-mini-hide">
+    <!--<div id="sidebar-extra-info" class="sidebar-content sidebar-nav-mini-hide">
         <div class="push-bit">
             <span class="pull-right">
                 <a href="javascript:void(0)" class="text-muted"><i class="fa fa-plus"></i></a>
@@ -289,7 +289,7 @@
             <small>Crafted with <i class="fa fa-heart text-danger"></i> by <a href="https://1.envato.market/ydb" target="_blank">pixelcave</a></small><br>
             <small><span id="year-copy"></span> &copy; <a href="https://1.envato.market/DXa" target="_blank"><?php echo $template['name'] . ' ' . $template['version']; ?></a></small>
         </div>
-    </div>
+    </div>-->
     <!-- END Sidebar Extra Info -->
 </div>
 <!-- END Main Sidebar -->

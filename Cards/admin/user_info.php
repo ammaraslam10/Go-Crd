@@ -130,7 +130,7 @@ include('/../assets/inc/page_head.php'); ?>
                         <td><?php echo $row['total_cards'];?></td>
                         <td><?php echo $row['date'];?></td>
                         <td class="text-center">
-                            <form action="" method="post">
+                            <form action="" method="post" onsubmit="return confirm('Do you really want to delete this user?');">
                                 <button name="delete_user" value="delete_user" data-toggle="tooltip" title="Delete User" class="btn btn-effect-ripple btn-xs btn-danger"><i class="fa fa-times"></i></button>
                                 <input type="hidden" name="id" value="<?php echo $row['id'];?>">
                             </form>

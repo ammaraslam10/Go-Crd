@@ -64,16 +64,21 @@ function gatewayinfo($gid,$value) {
 	return $row[$value];
 }
 
-function PW_CheckUser($email) {
+function UserAlreadyExists($email) {
 	global $db;
-	$query = $db->query("SELECT * FROM pw_users WHERE email='$email'");
+	$query = $db->query("SELECT * FROM user WHERE email='$email'");
 	if($query->num_rows>0) {
 		// user with this email address is exists
 		return true;
-	} else {
-		// user with this email address does not exists
-		return false;
 	}
+	$query = $db->query("SELECT * FROM admin WHERE email='$email'");
+	if($query->num_rows>0) {
+		// user with this email address is exists
+		return true;
+	}
+	else{
+		return false;
+	}  
 }
 
 function PW_GetFieldName($id) {

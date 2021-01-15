@@ -77,10 +77,10 @@ include('/../assets/inc/page_head.php');?>
             $phone=$_POST['val-phone'];
             $password=$_POST['val-password'];
             $stripe_key=$_POST['val-stripe_key'];
-            $razorpay_key=$_POST['val-razorpay_key'];
-            $query = $db->query("UPDATE settings SET su_email='$email',su_password='$password',su_phone='$phone',su_name='$name',stripe_key='$stripe_key',razorpay_key='$razorpay_key'");
+            $paypal_key=$_POST['val-paypal_key'];
+            $query = $db->query("UPDATE settings SET su_email='$email',su_password='$password',su_phone='$phone',su_name='$name',stripe_key='$stripe_key',paypal_key='$paypal_key'");
             //print_r($_FILES);
-            if(isset($_FILES['fileToUpload']) && $_FILES['error'] != 4) {
+            if(isset($_FILES['fileToUpload']) && $_FILES['error'] != 4 && $_FILES["fileToUpload"]["size"] != 0) {
                 $target_dir = "../uploads/";
                 $to_search = $target_dir . basename($_FILES["fileToUpload"]["name"]);
                 //echo $to_search;
@@ -196,9 +196,9 @@ include('/../assets/inc/page_head.php');?>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-md-3 control-label" for="val-razorpay_key">RazorPay Key <span class="text-danger">*</span></label>
+                        <label class="col-md-3 control-label" for="val-paypal_key">PayPal Key <span class="text-danger">*</span></label>
                         <div class="col-md-6">
-                            <input type="text" id="val-razorpay_key" name="val-razorpay_key" class="form-control" placeholder="Enter RazorPay Key" value="<?php echo $settings['razorpay_key'];?>" required>
+                            <input type="text" id="val-paypal_key" name="val-paypal_key" class="form-control" placeholder="Enter PayPal Key" value="<?php echo $settings['paypal_key'];?>" required>
                         </div>
                     </div>
                     <div class="form-group form-actions">

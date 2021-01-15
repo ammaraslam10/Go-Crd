@@ -181,7 +181,7 @@ include('/../assets/inc/page_head.php'); ?>
                             </form>
                         </td>
                         <td class="text-center">
-                            <form action="" method="post" style="display:inline;">
+                            <form action="" method="post" style="display:inline;" onsubmit="return confirm('Do you really want to delete this card?');">
                                 <button name="delete_card" value="delete_card" data-toggle="tooltip" title="Delete Card" class="btn btn-effect-ripple btn-xs btn-danger"><i class="fa fa-times"></i></button>
                                 <input type="hidden" name="card_id" value="<?php echo $row['id'];?>">
                             </form>

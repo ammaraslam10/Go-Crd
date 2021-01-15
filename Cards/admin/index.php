@@ -21,14 +21,14 @@ $img_url = get_image($file_url,$to_search);
 	//echo $a;
 	switch($a) {
 		case "su": include("super_admin.php"); break;
-
+		case "inactive_cards": include("inactive-cards.php"); break;
 		case "user_information": include("user_info.php"); break;
 		case "admin_information": include("admin_info.php"); break;
 		case "direct_user_card_information": include("usercard_info.php"); break;
 		case "admin_user_card_information": include("admincard_info.php"); break;
 		case "edit_profile": include("edit-profile.php"); break;
-		case "sending_methods": include("sources/sending_methods.php"); break;
-		case "withdrawals": include("sources/withdrawals.php"); break;
+		case "create_admin": include("create-admin.php"); break;
+		case "login": include("login-admin.php"); break;
 		case "transactions": include("sources/transactions.php"); break;
 		case "merchant_payments": include("sources/merchant_payments.php"); break;
 		case "knowledge": include("sources/knowledge.php"); break;
