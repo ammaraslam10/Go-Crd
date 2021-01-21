@@ -74,7 +74,7 @@
                                 <li class="nav-item"> <a class="nav-link" href="#features">FEATURES</a> </li>
                                 <li class="nav-item"> <a class="nav-link" href="#pricing">PRICING</a> </li>
                                 <li class="nav-item"> <a class="nav-link" href="#contact">CONTACT</a> </li>
-                                <li class="nav-item"> <a class="nav-link" href="admin/su">CUSTOMER LOGIN</a> </li>
+                                <li class="nav-item"> <a class="nav-link" href="login">CUSTOMER LOGIN</a> </li>
                               <!--  <li class="nav-item"> <a class="nav-link" href="panel/franchisee-login/login.php">FRANCHISEE LOGIN</a> </li>-->
                             </ul>
                         </div>

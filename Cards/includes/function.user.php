@@ -6,6 +6,7 @@ if(!defined('PWV1_INSTALLED')){
 	exit;
 }
 function get_image($file_url,$to_search){
+	global $settings;
 	$found_image = false;
 	clearstatcache();
 	//echo "targer is:".$to_search;
@@ -33,6 +34,7 @@ function get_image($file_url,$to_search){
 	{
 		$img_url = $settings['url'].'uploads/default.jpg';
 	}
+	//echo $img_url;
 	$img_url= $img_url."?t=".time();
 	return $img_url;
 }
@@ -47,9 +49,15 @@ function PW_InsertNotification($uid,$activity_id,$detail,$amount,$currency,$type
     $insert = $db->query("INSERT pw_notifications (uid,activity_id,detail,amount,currency,type,time) VALUES ('$uid','$activity_id','$detail','$amount','$currency','$type','$time')");
     return 0;
 }
-function idinfo($uid,$value) {
+function adminidinfo($uid,$value) {
 	global $db;
-	$query = $db->query("SELECT * FROM pw_users WHERE id='$uid'");
+	$query = $db->query("SELECT * FROM admin WHERE id='$uid'");
+	$row = $query->fetch_assoc();
+	return $row[$value];
+}	
+function useridinfo($uid,$value) {
+	global $db;
+	$query = $db->query("SELECT * FROM user WHERE id='$uid'");
 	$row = $query->fetch_assoc();
 	return $row[$value];
 }	

@@ -1,7 +1,7 @@
 <?php
 if(isset($_POST["export"])) {
     global $db; 
-    $query = $db->query("SELECT * FROM $type");
+    $query = $db->query("SELECT * FROM $type ORDER BY id ASC");
     $items = array();
     while($row = $query->fetch_assoc()) {
         $items[] = $row;

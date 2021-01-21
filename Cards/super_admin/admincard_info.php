@@ -6,10 +6,9 @@ $type='card where is_admin=1';
 <?php 
 $primary_nav = array(
     array(
-        'name'  => 'Admin Dashboard',
+        'name'  => 'Super Admin Dashboard',
         'url'   => 'su',
         'icon'  => 'gi gi-compass',
-        'active'=> true
     ),
     array(
         'url'   => 'separator',
@@ -28,6 +27,14 @@ $primary_nav = array(
         'url'   => 'user_information',
     ),
     array(
+        'name'  => 'Admin Information',
+        'icon'  => 'fa fa-rocket',
+        'url'   => 'admin_information',
+    ),
+    array(
+        'url'   => 'separator',
+    ),
+    array(
         'name'  => 'User Card Information',
         'icon'  => 'fa fa-rocket',
         'url'   => 'direct_user_card_information',
@@ -36,6 +43,7 @@ $primary_nav = array(
         'name'  => 'Admin Card Information',
         'icon'  => 'fa fa-rocket',
         'url'   => 'admin_user_card_information',
+        'active'=> true
     ),
     array(
         'url'   => 'separator',

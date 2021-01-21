@@ -1,15 +1,14 @@
-<?php include('/../assets/inc/config.php'); $template['header_link'] = 'ADMIN USER CARD INFORMATION'; 
-$type='card where is_admin=1';
+<?php include('/../assets/inc/config.php'); $template['header_link'] = 'INACTIVE CARD INFORMATION'; 
+$type='card where card_status=0';
 ?>
 <?php include('excel.php');?>
 <?php include('/../assets/inc/template_start.php'); ?>
 <?php 
 $primary_nav = array(
     array(
-        'name'  => 'Admin Dashboard',
+        'name'  => 'Super Admin Dashboard',
         'url'   => 'su',
         'icon'  => 'gi gi-compass',
-        'active'=> true
     ),
     array(
         'url'   => 'separator',
@@ -26,6 +25,11 @@ $primary_nav = array(
         'name'  => 'User Information',
         'icon'  => 'fa fa-rocket',
         'url'   => 'user_information',
+    ),
+    array(
+        'name'  => 'Admin Information',
+        'icon'  => 'fa fa-rocket',
+        'url'   => 'admin_information',
     ),
     array(
         'name'  => 'User Card Information',
@@ -49,6 +53,11 @@ $primary_nav = array(
 );
 include('/../assets/inc/page_head.php'); ?>
 <?php
+    if(isset($_POST['delete_user'])){
+        $id = $_POST['id'];
+        $query = $db->query("DELETE FROM user where id='$id'");
+        $query = $db->query("DELETE FROM card where creator='$id' and is_admin=0 ");
+    }
     if(isset($_POST['change_sub_type'])){
         $id = $_POST['card_id'];
         $new_status = $_POST['new_sub_type'];
@@ -82,7 +91,7 @@ include('/../assets/inc/page_head.php'); ?>
         <div class="row">
             <div class="col-sm-6">
                 <div class="header-section">
-                    <h1>Admin User Card Information</h1>
+                    <h1>Inactive Card Information</h1>
                 </div>
             </div>
         </div>
@@ -93,7 +102,7 @@ include('/../assets/inc/page_head.php'); ?>
     <!-- Datatables is initialized in js/pages/uiTables.js -->
     <div class="block full">
         <div class="block-title">
-            <h2>List of all admin users cards:</h2>
+            <h2>List of all inactive cards:</h2>
         </div>
         <div class="table-responsive">
             <table id="example-datatable" class="table table-striped table-bordered table-vcenter">
@@ -101,7 +110,6 @@ include('/../assets/inc/page_head.php'); ?>
                     <tr>
                         <th class="text-center" style="width: 50px;">Sr.No</th>
                         <th>User Email</th>
-                        <th>Admin ID</th>
                         <th>Card ID</th>
                         <th>Company Name</th>
                         <th>Payment Status</th>
@@ -136,7 +144,7 @@ include('/../assets/inc/page_head.php'); ?>
                         ?>
                         <?php
                         global $db; 
-                        $query = $db->query("SELECT * FROM card c where c.is_admin=1 ORDER BY id ASC");
+                        $query = $db->query("SELECT * FROM card where card_status=0 ORDER BY id ASC");
                         $i=1;
                         $items = array();
                         while($row = $query->fetch_assoc()) {
@@ -145,7 +153,6 @@ include('/../assets/inc/page_head.php'); ?>
                     <tr>
                         <td class="text-center"><?php echo $i++; ?></td>
                         <td><?php echo $row['user_email'];?></td>
-                        <td><?php echo $row['creator'];?></td>
                         <td><?php echo $row['id'];?></td>
                         <td><?php echo $row['company'];?></td>
                         <td class="text-center">
@@ -176,7 +183,7 @@ include('/../assets/inc/page_head.php'); ?>
                             </form>
                         </td>
                         <td class="text-center">
-                            <form action="" method="post" style="display:inline;" onsubmit="return confirm('Do you really want to delete this card?');">
+                            <form action="" method="post" style="display:inline;">
                                 <button name="delete_card" value="delete_card" data-toggle="tooltip" title="Delete Card" class="btn btn-effect-ripple btn-xs btn-danger"><i class="fa fa-times"></i></button>
                                 <input type="hidden" name="card_id" value="<?php echo $row['id'];?>">
                             </form>

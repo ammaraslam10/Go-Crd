@@ -30,6 +30,9 @@ $primary_nav = array(
         'url'   => 'admin_information',
     ),
     array(
+        'url'   => 'separator',
+    ),
+    array(
         'name'  => 'User Card Information',
         'icon'  => 'fa fa-rocket',
         'url'   => 'direct_user_card_information',
@@ -51,7 +54,7 @@ $primary_nav = array(
 );
 include('/../assets/inc/page_head.php'); ?>
 <?php
-    $file_url = '../uploads/su';
+    $file_url = 'uploads/su';
     $to_search = '../uploads/su';
     $img_url = get_image($file_url,$to_search);
 

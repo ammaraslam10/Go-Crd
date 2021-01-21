@@ -11,21 +11,23 @@ error_reporting(0);
 //error_reporting(E_ALL);
 include("../configs/bootstrap.php");
 include("../includes/bootstrap.php");
-$file_url = 'uploads/admin/'.$_SESSION['id'];
-$to_search = '../uploads/admin/'.$_SESSION['id'];
+$file_url = "uploads/su";
+$to_search = "../uploads/su";
 $img_url = get_image($file_url,$to_search);
 
-//if(checkAdminSession()) {
+if(checkSuperAdminSession()) {
 //	include("sources/header.php");
 	$a = protect($_GET['a']);
 	//echo $a;
 	switch($a) {
+		//case "su":  break;
 		case "inactive_cards": include("inactive-cards.php"); break;
 		case "user_information": include("user_info.php"); break;
+		case "admin_information": include("admin_info.php"); break;
 		case "direct_user_card_information": include("usercard_info.php"); break;
 		case "admin_user_card_information": include("admincard_info.php"); break;
 		case "edit_profile": include("edit-profile.php"); break;
-		case "create_user": include("create-user.php"); break;
+		case "create_admin": include("create-admin.php"); break;
 		case "login": include("login-admin.php"); break;
 		case "transactions": include("sources/transactions.php"); break;
 		case "merchant_payments": include("sources/merchant_payments.php"); break;
@@ -41,19 +43,18 @@ $img_url = get_image($file_url,$to_search);
 		case "recaptcha_settings": include("sources/recaptcha_settings.php"); break;
 		case "admin_profits": include("sources/admin_profits.php"); break;
 		case "logout": 
-			unset($_SESSION['pw_admin_uid']);
-			unset($_COOKIE['pw_admin_uid']);
-			setcookie("pw_admin_uid", "", time() - (86400 * 30), '/'); // 86400 = 1 day
+			unset($_SESSION['type']);
+			//unset($_COOKIE['pw_admin_uid']);
+			//setcookie("pw_admin_uid", "", time() - (86400 * 30), '/'); // 86400 = 1 day
 			session_unset();
 			session_destroy();
 			header("Location: $settings[url]");
 		break;
-
-		default: include("admin_dashboard.php");
+		default: include("super_admin.php");
 	}
 //	include("sources/footer.php");
-//} else {
-//	include("sources/login.php");
-//}
+} else {
+	include("../admin/login-admin.php");
+}
 mysqli_close($db);
 ?>

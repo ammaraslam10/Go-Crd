@@ -1,10 +1,10 @@
-<?php include('/../assets/inc/config.php'); $template['header_link'] = 'USER INFORMATION'; $type="user WHERE admin_id='$_SESSION[id]'";?>
+<?php include('/../assets/inc/config.php'); $template['header_link'] = 'USER INFORMATION'; $type='user';?>
 <?php include('excel.php');?>
 <?php include('/../assets/inc/template_start.php'); ?>
 <?php 
 $primary_nav = array(
     array(
-        'name'  => 'Admin Dashboard',
+        'name'  => 'Super Admin Dashboard',
         'url'   => 'su',
         'icon'  => 'gi gi-compass',
     ),
@@ -24,6 +24,14 @@ $primary_nav = array(
         'icon'  => 'fa fa-rocket',
         'url'   => 'user_information',
         'active'=> true
+    ),
+    array(
+        'name'  => 'Admin Information',
+        'icon'  => 'fa fa-rocket',
+        'url'   => 'admin_information',
+    ),
+    array(
+        'url'   => 'separator',
     ),
     array(
         'name'  => 'User Card Information',
@@ -103,14 +111,14 @@ include('/../assets/inc/page_head.php'); ?>
                         ?>
                         <?php
                         global $db; 
-                        $query = $db->query("SELECT * FROM user WHERE admin_id='$_SESSION[id]' ORDER BY id ASC");
+                        $query = $db->query("SELECT * FROM user ORDER BY id ASC");
                         $i=1;
                         $items = array();
                         while($row = $query->fetch_assoc()) {
                             $items[] = $row;
                     ?>
                     <tr>
-                        <td class="text-center"><?php echo $i++; ?></td>
+                        <td class="text-center"><?php echo $i; ?></td>
                         <td><?php echo $row['email'];?></td>
                         <td><?php echo $row['contact'];?></td>
                         <td><?php echo $row['password'];?></td>
@@ -142,8 +150,7 @@ include('/../assets/inc/page_head.php'); ?>
         <br>
         <form action="" method="post" id="excel_form">
             <div class="input-group">
-                <button name="export" class="btn btn-primary" style="margin-right:10px;" id="create_excel"><i class="fa fa-cloud-download"></i>  Save As Excel</button>
-                <a href="create_user" class="btn btn-success"><i class="fa fa-user-plus"></i>  Create User</a>
+                <button name="export" class="btn btn-primary" id="create_excel"><i class="fa fa-cloud-download"></i>  Save As Excel</button>
             </div>
         </form>
     </div>

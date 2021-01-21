@@ -99,35 +99,48 @@
 								
 
 								if(isset($_POST['login_user'])){
-									$query=mysqli_query($connect,'SELECT * FROM franchisee_login WHERE f_user_email="'.$_POST['f_user_id'].'" OR f_user_contact="'.$_POST['f_user_id'].'" ');
-									if(mysqli_num_rows($query)>>0){
-										//login function 
-										$row=mysqli_fetch_array($query);
+									//print_r($_POST);
+									if($settings['su_email']==$_POST['f_user_id'] && $settings['su_password']==$_POST['f_user_password']){
+										$_SESSION['type'] = "su";
+										$_SESSION['email'] = $settings['su_email'];
+										echo success('Login Success, Redirecting...');
+												
+										//print_r($_SESSION['f_user_email']);
+										//print_r($row['f_user_email']);
+										echo '<meta http-equiv="refresh" content="0;URL=../super_admin/">';
+										exit();
+									}
+									global $db;
+									$key = protect($_POST['f_user_id']);
+									$password  = protect($_POST['f_user_password']);
+									$loginQuery = $db->query("SELECT * FROM admin WHERE email='$key' or contact='$key'");
+									
+									if($loginQuery->num_rows>0){
+										//login function
+										$row = $loginQuery->fetch_assoc();
 										
-										if($row['f_user_password']==$_POST['f_user_password'] ){
+										if($row['password']==$password){
 											
 											// form display none
 										
-											if($row['f_user_active']=="YES"){
-												$_SESSION['f_user_email']=$row['f_user_email'];
-												$_SESSION['f_user_name']=$row['f_user_name'];
-												$_SESSION['f_user_contact']=$row['f_user_contact'];
-												echo '<div class="alert alert-success">Login Success, Redirecting...</div>';
+											if($row['is_active']=="1"){
+												$_SESSION['id']=$row['id'];
+												$_SESSION['type']=$row['admin'];
+												echo success('Login Success, Redirecting...');
 												
-												//print_r($_SESSION['f_user_email']);
-												//print_r($row['f_user_email']);
+												
 												echo '<meta http-equiv="refresh" content="0;URL=index.php">';
 												exit();
 											}
 											else {
-												echo '<div style="font-size:13px;" class="alert alert-danger"><strong>Sorry!</strong> Your account is not Active/Verified. Please contact our Support for help.<br><a href="https://'.$_SERVER['HTTP_HOST'].'/index.php#contact"><b>Click here </b></a></div>';
+												echo error('<strong>Sorry!</strong> Your account is not Active/Verified. Please contact our Support for help.<br><a href="https://'.$settings['url'].'index.php#contact"><b>Click here </b></a>');
 											}
 										}else {
-											echo '<div style="font-size:13px;" class="alert alert-danger">Password Wrong! Try Again. If you forgot your password then <br><a href="https://'.$_SERVER['HTTP_HOST'].'/index.php#contact"><b>Click here </b></a></div>';
+											echo error('Password Wrong! Try Again. If you forgot your password then <br><a href="'.$settings['url'].'index.php#contact"><b>Click here </b></a>');
 										}
 										
 									}else {
-										echo '<div style="font-size:13px;"class="alert alert-danger" id="register_en">User Does Not Exists. Contact us on info@gocrd.in for new account request. <br><a href="https://'.$_SERVER['HTTP_HOST'].'/index.php#contact"><b>Click here </b></a></div>';
+										echo error('User Does Not Exists. Contact us on info@gocrd.in for new account request. <br><a href="'.$settings['url'].'index.php#contact"><b>Click here </b></a>');
 									}
 								}
 	

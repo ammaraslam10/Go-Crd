@@ -27,6 +27,14 @@ function isValidURL($url) {
 	return preg_match('|^http(s)?://[a-z0-9-]+(.[a-z0-9-]+)*(:[0-9]+)?(/.*)?$|i', $url);
 }
 
+function checkSuperAdminSession() {
+	if(isset($_SESSION['type']) && $_SESSION['type']=="su") {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 function checkAdminSession() {
 	if(isset($_SESSION['pw_admin_uid'])) {
 		return true;

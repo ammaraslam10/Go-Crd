@@ -79,7 +79,7 @@
                 </li>
                 <li class="divider"><li>
                 <li>
-                    <a href="page_ready_login.php">
+                    <a href="logout">
                         <i class="fa fa-power-off fa-fw pull-right"></i>
                         Log out
                     </a>

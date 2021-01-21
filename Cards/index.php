@@ -5,7 +5,7 @@ if(file_exists("./install.php")) {
 define('PWV1_INSTALLED',TRUE);
 ob_start();
 session_start();
-//error_reporting(0);
+//error_reporting(E_ALL);
 include("configs/bootstrap.php");
 include("includes/bootstrap.php");
 //include(getLanguage($settings['url'],null,null));

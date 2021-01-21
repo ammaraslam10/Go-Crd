@@ -1,12 +1,12 @@
-<?php include('/../assets/inc/config.php'); $template['header_link'] = 'DIRECT USER CARD INFORMATION'; 
-$type='card where is_admin=0';
+<?php include('/../assets/inc/config.php'); $template['header_link'] = 'USER CARD INFORMATION'; 
+$type='card c inner join user u on c.creator = u.admin_id WHERE c.is_admin = 0 ORDER BY c.id ASC';
 ?>
 <?php include('excel.php');?>
 <?php include('/../assets/inc/template_start.php'); ?>
 <?php 
 $primary_nav = array(
     array(
-        'name'  => 'Super Admin Dashboard',
+        'name'  => 'Admin Dashboard',
         'url'   => 'su',
         'icon'  => 'gi gi-compass',
     ),
@@ -25,11 +25,6 @@ $primary_nav = array(
         'name'  => 'User Information',
         'icon'  => 'fa fa-rocket',
         'url'   => 'user_information',
-    ),
-    array(
-        'name'  => 'Admin Information',
-        'icon'  => 'fa fa-rocket',
-        'url'   => 'admin_information',
     ),
     array(
         'name'  => 'User Card Information',
@@ -120,8 +115,7 @@ include('/../assets/inc/page_head.php'); ?>
                         <th>Subscription Type</th>
                         <th>Card Link</th>
                         <th>Card Status</th>
-                        <th>Delete/Edit</th>
-                        <th class="text-center" style="width: 75px;">Footer</th>
+                        <th>Edit</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -145,7 +139,7 @@ include('/../assets/inc/page_head.php'); ?>
                         ?>
                         <?php
                         global $db; 
-                        $query = $db->query("SELECT * FROM card where is_admin=0 ORDER BY id ASC");
+                        $query = $db->query("SELECT c.* FROM card c inner join user u on c.creator = u.admin_id WHERE is_admin = 0 ORDER BY id ASC");
                         $i=1;
                         $items = array();
                         while($row = $query->fetch_assoc()) {
@@ -174,7 +168,7 @@ include('/../assets/inc/page_head.php'); ?>
                                 <input type="hidden" name="new_sub_type" value="<?php  echo ($row['subscription_type']+1)%3; ?>">
                             </form>
                         </td>
-                        <td><?php echo $row['card_link'];?></td>
+                        <td><a href="<?php echo $row['card_link'];?>"><?php echo $row['card_link'];?></a></td>
                         <!-- For Card Status -->
                         <td class="text-center">
                             <form action="" method="post">
@@ -184,18 +178,11 @@ include('/../assets/inc/page_head.php'); ?>
                             </form>
                         </td>
                         <td class="text-center">
-                            <form action="" method="post" style="display:inline;" onsubmit="return confirm('Do you really want to delete this card?');">
+                            <!--<form action="" method="post" style="display:inline;" onsubmit="return confirm('Do you really want to delete this card?');">
                                 <button name="delete_card" value="delete_card" data-toggle="tooltip" title="Delete Card" class="btn btn-effect-ripple btn-xs btn-danger"><i class="fa fa-times"></i></button>
                                 <input type="hidden" name="card_id" value="<?php echo $row['id'];?>">
-                            </form>
+                            </form>-->
                             <a href="./edit-card?card_id=<?php echo $row['id'];?>" data-toggle="tooltip" title="Edit User" class="btn btn-effect-ripple btn-xs btn-success"><i class="fa fa-pencil"></i></a>
-                        </td>
-                        <td class="text-center">
-                            <form action="" method="post">
-                                <button name="change_footer_status" class="label<?php echo ($labels_card_status[$row['has_footer']]['class']) ? " " . $labels_card_status[$row['has_footer']]['class'] : ""; ?>"><?php echo $labels_card_status[$row['has_footer']]['text'] ?></button>
-                                <input type="hidden" name="card_id" value="<?php echo $row['id'];?>">
-                                <input type="hidden" name="new_footer_status" value="<?php  echo ($row['has_footer']) ? "0" : "1"; ?>">
-                            </form>
                         </td>
                     </tr>
                     <?php 

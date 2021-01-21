@@ -1,10 +1,10 @@
-<?php include('/../assets/inc/config.php'); $template['header_link'] = 'EDIT PROFILE - ADMIN'; ?>
+<?php include('/../assets/inc/config.php'); $template['header_link'] = 'EDIT PROFILE - SUPER ADMIN'; ?>
 <?php include('/../assets/inc/template_start.php'); ?>
 
 <?php 
 $primary_nav = array(
     array(
-        'name'  => 'Admin Dashboard',
+        'name'  => 'Super Admin Dashboard',
         'url'   => 'su',
         'icon'  => 'gi gi-compass',
     ),
@@ -28,6 +28,9 @@ $primary_nav = array(
         'name'  => 'Admin Information',
         'icon'  => 'fa fa-rocket',
         'url'   => 'admin_information',
+    ),
+    array(
+        'url'   => 'separator',
     ),
     array(
         'name'  => 'User Card Information',
@@ -72,14 +75,16 @@ include('/../assets/inc/page_head.php');?>
         <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
         <?php
         if(isset($_POST['update_profile'])){
-            $email=protect($_POST['val-email']);
-            $name=protect($_POST['val-name']);
-            $phone=protect($_POST['val-phone']);
-            $password=protect($_POST['val-password']);
-            $query = $db->query("UPDATE admin SET email='$email',password='$password',contact='$phone',username='$name' WHERE id='$_SESSION[id]'");
+            $email=$_POST['val-email'];
+            $name=$_POST['val-name'];
+            $phone=$_POST['val-phone'];
+            $password=$_POST['val-password'];
+            $stripe_key=$_POST['val-stripe_key'];
+            $paypal_key=$_POST['val-paypal_key'];
+            $query = $db->query("UPDATE settings SET su_email='$email',su_password='$password',su_phone='$phone',su_name='$name',stripe_key='$stripe_key',paypal_key='$paypal_key'");
             //print_r($_FILES);
             if(isset($_FILES['fileToUpload']) && $_FILES['error'] != 4 && $_FILES["fileToUpload"]["size"] != 0) {
-                $target_dir = "../uploads/admin/";
+                $target_dir = "../uploads/";
                 $to_search = $target_dir . basename($_FILES["fileToUpload"]["name"]);
                 //echo $to_search;
                 $uploadOk = 1;
@@ -104,7 +109,7 @@ include('/../assets/inc/page_head.php');?>
                 } 
                 else {
                     
-                $to_search = $target_dir.$_SESSION['id'];
+                $to_search = $target_dir.'su';
                 //echo 'file name will be: '.$to_search;
                   if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $to_search.'.'.$imageFileType)) {
                     echo success("Profile picture has been updated.");
@@ -115,6 +120,9 @@ include('/../assets/inc/page_head.php');?>
                   }
                 }
             }
+               
+            $settingsQuery = $db->query("SELECT * FROM settings ORDER BY id DESC LIMIT 1");
+            $settings = $settingsQuery->fetch_assoc();
             echo success("Your changes were saved.");
         }
         ?>
@@ -133,8 +141,8 @@ include('/../assets/inc/page_head.php');?>
                         <div class="text-center">
                             <div class="figure-profile shadow my-4">
                             <?php
-                                $file_url = 'uploads/admin/'.$_SESSION['id'];
-                                $to_search = '../uploads/admin/'.$_SESSION['id'];
+                                $file_url = 'uploads/su';
+                                $to_search = '../uploads/su';
                                 $img_url = get_image($file_url,$to_search);
                                 
                             ?>
@@ -154,38 +162,46 @@ include('/../assets/inc/page_head.php');?>
                             </div>
                         </div>
                     </div>
-                    <?php
-                        $adminQuery = $db->query("SELECT * FROM admin WHERE id='$_SESSION[id]'");
-                        $row = $adminQuery->fetch_assoc();
-                    ?>
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="email">Login Email <span class="text-danger">*</span></label>
                         <div class="col-md-6">
-                            <input type="text" id="val-email" name="val-email" class="form-control" placeholder="Enter your valid email.." value="<?php echo $row['email'];?>" required>
+                            <input type="text" id="val-email" name="val-email" class="form-control" placeholder="Enter your valid email.." value="<?php echo $settings['su_email'];?>" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="val-digits">Contact Number <span class="text-danger">*</span></label>
                         <div class="col-md-6">
-                            <input type="text" id="val-phone" name="val-phone" class="form-control" placeholder="Enter phone number" value="<?php echo $row['contact'];?>" required>
+                            <input type="text" id="val-phone" name="val-phone" class="form-control" placeholder="Enter phone number" value="<?php echo $settings['su_phone'];?>" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="val-name">Name <span class="text-danger">*</span></label>
                         <div class="col-md-6">
-                            <input type="text" id="val-name" name="val-name" class="form-control" placeholder="Enter your name" value="<?php echo $row['username'];?>" required>
+                            <input type="text" id="val-name" name="val-name" class="form-control" placeholder="Enter your name" value="<?php echo $settings['su_name'];?>" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="val-password">Password <span class="text-danger">*</span></label>
                         <div class="col-md-6">
-                            <input type="password" id="val-password" name="val-password" class="form-control" placeholder="Enter password" value="<?php echo $row['password'];?>" required>
+                            <input type="password" id="val-password" name="val-password" class="form-control" placeholder="Enter password" value="<?php echo $settings['su_password'];?>" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-md-3 control-label" for="val-confirm-password">Confirm Password <span class="text-danger">*</span></label>
                         <div class="col-md-6">
-                            <input type="password" id="val-confirm-password" name="val-confirm-password" class="form-control" placeholder="Enter new password" value="<?php echo $row['password'];?>" required>
+                            <input type="password" id="val-confirm-password" name="val-confirm-password" class="form-control" placeholder="Enter new password" value="<?php echo $settings['su_password'];?>" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="val-stripe_key">Stripe Key <span class="text-danger">*</span></label>
+                        <div class="col-md-6">
+                            <input type="text" id="val-stripe_key" name="val-stripe_key" class="form-control" placeholder="Enter Stripe Key" value="<?php echo $settings['stripe_key'];?>" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="val-paypal_key">PayPal Key <span class="text-danger">*</span></label>
+                        <div class="col-md-6">
+                            <input type="text" id="val-paypal_key" name="val-paypal_key" class="form-control" placeholder="Enter PayPal Key" value="<?php echo $settings['paypal_key'];?>" required>
                         </div>
                     </div>
                     <div class="form-group form-actions">
