@@ -6,6 +6,41 @@ if(!defined('PWV1_INSTALLED')){
 	exit;
 }
 
+function form_post_value($ind) {
+	if(isset($_POST[$ind]) && $_POST[$ind] != "") 
+		return 'value="'.htmlspecialchars($_POST[$ind], ENT_QUOTES).'"';
+	else return "";
+}
+function form_post_value_selected($ind, $value) {
+	if(isset($_POST[$ind]) && $_POST[$ind] == $value) return "selected";
+}
+function form_post_value_checked($ind, $value) {
+	if(form_post_value_selected($ind, $value) == "selected") return "checked";
+}
+function form_update_raw($ind, $method = 0) {
+	if($method == 0) { if(isset($_POST[$ind])) { return htmlspecialchars($_POST[$ind], ENT_QUOTES); } }
+	if(isset($_GET[$ind])) { return htmlspecialchars($_GET[$ind], ENT_QUOTES); } 
+	if(isset($GLOBALS[$ind])) return htmlspecialchars($GLOBALS[$ind], ENT_QUOTES);
+	else return "";
+}
+function form_update_value($ind, $method = 0) {
+	$v = form_update_raw($ind, $method);
+	if($v != "")
+		return 'value="'.$v.'"';
+	return "";
+}
+function form_update_value_selected($ind, $value, $method = 0) {
+	if(form_update_raw($ind, $method) == $value) return 'selected';
+}
+function form_update_value_checked($ind, $value, $method = 0) {
+	if(form_update_raw($ind, $method) == $value) return 'checked';
+}
+function clean($con, $inp) {
+	$inp = stripslashes($inp);
+	$inp = mysqli_real_escape_string($con, $inp);
+	return $inp;
+}
+
 function protect($string) {
 	$protection = htmlspecialchars(trim($string), ENT_QUOTES);
 	return $protection;

@@ -11,9 +11,9 @@ include("includes/bootstrap.php");
 //include(getLanguage($settings['url'],null,null));
 
 $a = protect($_GET['a']);
+error_reporting(0);
 //echo '<script>alert("'.$a.'");</script>';
 switch($a) {
-	case "create-card": include("sources/create_card.php"); break;
 	case "admin": include("sources/"); break;
 
 	//case "notifications": include("sources/account/summary.php"); break;
@@ -28,6 +28,11 @@ switch($a) {
 	case "knowledge": include("sources/knowledge.php"); break;
 	case "payment": include("sources/payment.php"); break;
 	case "deposit": include("sources/deposit.php"); break;
+	case "": include("sources/home.php"); break;
+	case "create-card": include("sources/card_create.php"); break;
+	case "edit-card": include("sources/card_edit.php"); break;
+	case "view-card-messages": include("sources/card_messages.php"); break;
+	case "image-upload": include("sources/image_upload.php"); break;
 	case "logout": 
 		unset($_SESSION['pw_uid']);
 		unset($_COOKIE['prowall_uid']);
@@ -36,7 +41,8 @@ switch($a) {
 		session_destroy();
 		header("Location: $settings[url]");
 	break;
-	default: include("sources/home.php");
+	default: include("sources/card_view.php"); break;
+	
 }
 mysqli_close($db);
 ?>
