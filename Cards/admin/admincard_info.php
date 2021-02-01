@@ -7,7 +7,7 @@ $type='card where is_admin=1';
 $primary_nav = array(
     array(
         'name'  => 'Admin Dashboard',
-        'url'   => 'su',
+        'url'   => '.',
         'icon'  => 'gi gi-compass',
         'active'=> true
     ),
@@ -136,7 +136,7 @@ include('/../assets/inc/page_head.php'); ?>
                         ?>
                         <?php
                         global $db; 
-                        $query = $db->query("SELECT * FROM card c where c.is_admin=1 ORDER BY id ASC");
+                        $query = $db->query("SELECT c.* FROM card c inner join user u on c.creator = u.admin_id WHERE is_admin = 1 ORDER BY id ASC");
                         $i=1;
                         $items = array();
                         while($row = $query->fetch_assoc()) {

@@ -117,7 +117,7 @@ include('/../assets/inc/page_head.php'); ?>
                         <td><?php echo $row['username'];?></td>
                         <td class="text-center">
                             <form action="" method="post">
-                                <button name="change_status" class="label<?php echo ($labels[$row['is_active']]['class']) ? " " . $labels[$row['is_active']]['class'] : ""; ?>"><?php echo $labels[$row['is_active']]['text'] ?></button>
+                                <label class="label<?php echo ($labels[$row['is_active']]['class']) ? " " . $labels[$row['is_active']]['class'] : ""; ?>"><?php echo $labels[$row['is_active']]['text'] ?></label>
                                 <input type="hidden" name="id" value="<?php echo $row['id'];?>">
                                 <input type="hidden" name="new_status" value="<?php  echo ($row['is_active']) ? "0" : "1"; ?>">
                             </form>

@@ -1,4 +1,11 @@
+<?php
 
+if(checkAdminSession()) {
+	$url = $settings['url'].admin;
+	header("Location: $url");
+}
+
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -125,7 +132,7 @@
 										
 											if($row['is_active']=="1"){
 												$_SESSION['id']=$row['id'];
-												$_SESSION['type']=$row['admin'];
+												$_SESSION['type']="admin";
 												echo success('Login Success, Redirecting...');
 												
 												

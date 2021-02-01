@@ -36,7 +36,7 @@ function checkSuperAdminSession() {
 }
 
 function checkAdminSession() {
-	if(isset($_SESSION['pw_admin_uid'])) {
+	if(isset($_SESSION['type']) && $_SESSION['type']=="admin") {
 		return true;
 	} else {
 		return false;

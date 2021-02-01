@@ -5,7 +5,7 @@
 $primary_nav = array(
     array(
         'name'  => 'Admin Dashboard',
-        'url'   => 'su',
+        'url'   => '.',
         'icon'  => 'gi gi-compass',
     ),
     array(
@@ -23,11 +23,6 @@ $primary_nav = array(
         'name'  => 'User Information',
         'icon'  => 'fa fa-rocket',
         'url'   => 'user_information',
-    ),
-    array(
-        'name'  => 'Admin Information',
-        'icon'  => 'fa fa-rocket',
-        'url'   => 'admin_information',
     ),
     array(
         'name'  => 'User Card Information',
@@ -68,7 +63,6 @@ include('/../assets/inc/page_head.php');?>
     
     <!-- Form Validation Content -->
     <div class="row">
-        
         <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
         <?php
         if(isset($_POST['update_profile'])){

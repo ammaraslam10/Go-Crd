@@ -1,4 +1,4 @@
-<?php include('/../assets/inc/config.php'); $template['header_link'] = 'DASHBOARD - SUPER ADMIN'; ?>
+<?php include('/../assets/inc/config.php'); $template['header_link'] = 'DASHBOARD - ADMIN'; ?>
 <?php include('/../assets/inc/template_start.php'); ?>
 <?php 
 $primary_nav = array(

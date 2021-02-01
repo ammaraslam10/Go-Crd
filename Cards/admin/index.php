@@ -14,8 +14,8 @@ include("../includes/bootstrap.php");
 $file_url = 'uploads/admin/'.$_SESSION['id'];
 $to_search = '../uploads/admin/'.$_SESSION['id'];
 $img_url = get_image($file_url,$to_search);
-
-//if(checkAdminSession()) {
+//echo checkAdminSession();
+if(checkAdminSession()) {
 //	include("sources/header.php");
 	$a = protect($_GET['a']);
 	//echo $a;
@@ -41,9 +41,9 @@ $img_url = get_image($file_url,$to_search);
 		case "recaptcha_settings": include("sources/recaptcha_settings.php"); break;
 		case "admin_profits": include("sources/admin_profits.php"); break;
 		case "logout": 
-			unset($_SESSION['pw_admin_uid']);
-			unset($_COOKIE['pw_admin_uid']);
-			setcookie("pw_admin_uid", "", time() - (86400 * 30), '/'); // 86400 = 1 day
+			unset($_SESSION['type']);
+			//unset($_COOKIE['pw_admin_uid']);
+			//setcookie("pw_admin_uid", "", time() - (86400 * 30), '/'); // 86400 = 1 day
 			session_unset();
 			session_destroy();
 			header("Location: $settings[url]");
@@ -52,8 +52,8 @@ $img_url = get_image($file_url,$to_search);
 		default: include("admin_dashboard.php");
 	}
 //	include("sources/footer.php");
-//} else {
-//	include("sources/login.php");
-//}
+} else {
+	include("login-admin.php");
+}
 mysqli_close($db);
 ?>

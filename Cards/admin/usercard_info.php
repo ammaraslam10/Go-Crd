@@ -7,7 +7,7 @@ $type='card c inner join user u on c.creator = u.admin_id WHERE c.is_admin = 0 O
 $primary_nav = array(
     array(
         'name'  => 'Admin Dashboard',
-        'url'   => 'su',
+        'url'   => '.',
         'icon'  => 'gi gi-compass',
     ),
     array(
@@ -139,10 +139,11 @@ include('/../assets/inc/page_head.php'); ?>
                         ?>
                         <?php
                         global $db; 
-                        $query = $db->query("SELECT c.* FROM card c inner join user u on c.creator = u.admin_id WHERE is_admin = 0 ORDER BY id ASC");
+                        $query = $db->query("SELECT DISTINCT c.* FROM card c inner join user u on c.creator = u.admin_id WHERE is_admin = 0 and u.admin_id='$_SESSION[id]' ORDER BY id ASC");
                         $i=1;
                         $items = array();
                         while($row = $query->fetch_assoc()) {
+                            //print_r($row);
                             $items[] = $row;
                     ?>
                     <tr>
@@ -151,31 +152,19 @@ include('/../assets/inc/page_head.php'); ?>
                         <td><?php echo $row['id'];?></td>
                         <td><?php echo $row['company'];?></td>
                         <td class="text-center">
-                            <form action="" method="post">
-                                <button name="change_status" class="label<?php echo ($labels_payment_status[$row['payment_status']]['class']) ? " " . $labels_payment_status[$row['payment_status']]['class'] : ""; ?>"><?php echo $labels_payment_status[$row['payment_status']]['text'] ?></button>
-                                <input type="hidden" name="card_id" value="<?php echo $row['id'];?>">
-                                <input type="hidden" name="new_payment_status" value="<?php  echo ($row['payment_status']) ? "0" : "1"; ?>">
-                            </form>
+                            <labels name="change_status" class="label<?php echo ($labels_payment_status[$row['payment_status']]['class']) ? " " . $labels_payment_status[$row['payment_status']]['class'] : ""; ?>"><?php echo $labels_payment_status[$row['payment_status']]['text'] ?></labels>
                         </td>
                         <td><?php echo $row['creation_date'];?></td>
                         <td><?php echo $row['trial_expiry_date'];?></td>
                         <td><?php echo $row['plan_expiry_date'];?></td>
                         <!-- For Subscription -->
                         <td class="text-center">
-                            <form action="" method="post">
-                                <button name="change_sub_type" class="label<?php echo ($labels_subscription_type[$row['subscription_type']]['class']) ? " " . $labels_subscription_type[$row['subscription_type']]['class'] : ""; ?>"><?php echo $labels_subscription_type[$row['subscription_type']]['text'] ?></button>
-                                <input type="hidden" name="card_id" value="<?php echo $row['id'];?>">
-                                <input type="hidden" name="new_sub_type" value="<?php  echo ($row['subscription_type']+1)%3; ?>">
-                            </form>
+                            <label name="change_sub_type" class="label<?php echo ($labels_subscription_type[$row['subscription_type']]['class']) ? " " . $labels_subscription_type[$row['subscription_type']]['class'] : ""; ?>"><?php echo $labels_subscription_type[$row['subscription_type']]['text'] ?></label>
                         </td>
                         <td><a href="<?php echo $row['card_link'];?>"><?php echo $row['card_link'];?></a></td>
                         <!-- For Card Status -->
                         <td class="text-center">
-                            <form action="" method="post">
-                                <button name="change_status" class="label<?php echo ($labels_card_status[$row['card_status']]['class']) ? " " . $labels_card_status[$row['card_status']]['class'] : ""; ?>"><?php echo $labels_card_status[$row['card_status']]['text'] ?></button>
-                                <input type="hidden" name="card_id" value="<?php echo $row['id'];?>">
-                                <input type="hidden" name="new_status" value="<?php  echo ($row['card_status']) ? "0" : "1"; ?>">
-                            </form>
+                            <label name="change_status" class="label<?php echo ($labels_card_status[$row['card_status']]['class']) ? " " . $labels_card_status[$row['card_status']]['class'] : ""; ?>"><?php echo $labels_card_status[$row['card_status']]['text'] ?></label>
                         </td>
                         <td class="text-center">
                             <!--<form action="" method="post" style="display:inline;" onsubmit="return confirm('Do you really want to delete this card?');">

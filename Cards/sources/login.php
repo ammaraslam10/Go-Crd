@@ -54,9 +54,11 @@
 								</div>
 								<input type="submit" name="login_user" value="Login" class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm">							
 								</br>
-							<!--	<a id="register_en" class="display-4 custom-size">New User? Register.</a>&nbsp;-->
-								
-								<a id="forgot_p" class="display-4 custom-size">Forgot Password?</a>&nbsp;&nbsp;
+								<a href="#" id="register_en" class="display-4 custom-size">New User? Register.</a>
+								<br>
+								<a href="#" id="forgot_p" class="display-4 custom-size">Forgot Password?</a>
+								<br>
+								<br>
 								<a href="admin/login" class="text-right">Login As Franchisee</a>
 								<br>
 							</form></br>
@@ -78,8 +80,9 @@
 								</div>
 								<input type="submit" name="register" value="Create Account" class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm">
 								</br>
-								<a id="login_en" class="display-4 custom-size">Existing User?Click To Login</a>&nbsp;&nbsp;
-								<a id="forgot_p" class="display-4 custom-size">Forgot Password?</a>
+								<a href="#" id="login_en" class="display-4 custom-size">Existing User? Click To Login</a>
+								<br>
+								<a href="#" id="forgot_p" class="display-4 custom-size">Forgot Password?</a>
 								<br>
 							</form>
 							
@@ -92,8 +95,7 @@
 								</div>
 								<input type="submit" name="forgot_password" value="Send Password" class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm" >
 								</br>
-								<a id="login_en" href="" class="display-4 custom-size">Go Back to Login</a>&nbsp;
-								<a id="forgot_p" class="display-4 custom-size">Forgot Password?</a>
+								<a id="login_en" href="" class="display-4 custom-size">Go Back to Login</a>
 								<br>
 							</form>
 							<?php
@@ -112,11 +114,9 @@
 											$_SESSION['user_email']=$row['user_email'];
 											$_SESSION['user_name']=$row['user_name'];
 											$_SESSION['user_contact']=$row['user_contact'];
-											echo '<div class="alert alert-success">Login Success, Redirecting...</div>';
+											echo success('Login Success, Redirecting...');
 											echo '<meta http-equiv="refresh" content="3;URL=index.php">';
 											echo '<div class="alert alert-info">Also Please confirm your Email id, please click on the link to verify it. Check your SPAM folder also if email is not available in inbox.</div>';
-											
-										
 									}else {
 										echo '<div class="alert alert-danger">Password Wrong! Try Again.</div>';
 									}
@@ -270,18 +270,20 @@ Gocrd Service Team
 		$('#login').hide();
 		$('#register').show();
 		$('#forgot_pass').hide();
+		$('#forgot_p').show();
 		
 	})
 	$('#login_en').on('click',function(){
 		$('#register').hide();
 		$('#forgot_pass').hide();
 		$('#login').show();
+		$('#forgot_p').show();
 	})
 	$('#forgot_p').on('click',function(){
 		$('#forgot_pass').show(); 
 		$('#register').hide();
 		$('#login').hide();
-		
+		$('#forgot_p').hide();
 	})
 	
 
