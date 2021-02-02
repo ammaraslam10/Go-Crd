@@ -9,6 +9,7 @@ ob_start();
 session_start();
 error_reporting(0);
 //error_reporting(E_ALL);
+
 include("../configs/bootstrap.php");
 include("../includes/bootstrap.php");
 $file_url = 'uploads/admin/'.$_SESSION['id'];
@@ -26,6 +27,8 @@ if(checkAdminSession()) {
 		case "admin_user_card_information": include("admincard_info.php"); break;
 		case "edit_profile": include("edit-profile.php"); break;
 		case "create_user": include("create-user.php"); break;
+		case "create-card": include("../sources/card_create.php"); break;
+		
 		case "login": include("login-admin.php"); break;
 		case "transactions": include("sources/transactions.php"); break;
 		case "merchant_payments": include("sources/merchant_payments.php"); break;

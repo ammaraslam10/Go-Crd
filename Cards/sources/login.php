@@ -42,9 +42,106 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-10 col-xl-7 mx-auto">
-							
+						
                             <form action="" method="post" autocomplete="off" id="login">
 								<h2 class="display-4" style="font-size:42px;">Customer Login</h2></br>
+								<?php
+									if(isset($_POST['login_user'])){
+										global $gb;
+										$key = protect($_POST['user_id']);
+										$password = protect($_POST['user_password']);
+										if(UserAlreadyExistsContact($key) || UserAlreadyExists($key)){
+											$Uquery = $db->query("SELECT * FROM user WHERE email='$key' OR contact='$key' ORDER BY id DESC");
+											//login function 
+											$row=$Uquery->fetch_assoc();
+											
+											if($row['password']==$password){
+												if(!$row['is_active']){
+													echo error("Your account is not active, Please verify your email address by clicking the link sent to your inbox. In case of any problem please feel free to contact support");
+												}
+												else{
+													// logged in and form display none
+													//echo '<style> form {display:none;} </style>';
+													$_SESSION['type']="user";
+													$_SESSION['id'] = $row['id'];
+													echo success('Login Success, Redirecting...');
+													echo '<meta http-equiv="refresh" content="3;URL=.">';
+													//echo '<div class="alert alert-info">Also Please confirm your Email id, please click on the link to verify it. Check your SPAM folder also if email is not available in inbox.</div>';
+												}
+												
+											}else {
+												echo error('Password Wrong! Try Again.');
+											}
+										}else {
+											echo error('User Does Not Exists. Create New Account');
+										}
+									}
+			
+									// register -------------------------------
+
+									if(isset($_POST['register'])){
+										$email = protect($_POST['user_email']);
+										$name = protect($_POST['user_name']);
+										$password = protect($_POST['user_password']);
+										$contact = protect($_POST['user_contact']);
+										if(!UserAlreadyExists($email)){
+											$token=rand(100000000,99999999999);
+											global $db;
+											$insert=$db->query("INSERT INTO user (email,username,password,contact) VALUES ('$email','$name','$password','$contact')");
+
+											if($insert){
+												echo success('Account has been created...Please check your email for verification');
+												//header("Location: login");
+												//echo '<meta http-equiv="refresh" content="0;URL=login">';
+												//exit();
+											//	$_SESSION['user_email']=$_POST['user_email'];
+											//	$_SESSION['user_name']=$_POST['user_name'];
+											//	$_SESSION['user_contact']=$_POST['user_contact'];
+												// form display none
+											//	echo '<div class="alert Success">Redirecting...</div>';
+											//	echo '<meta http-equiv="refresh" content="1;URL=index.php">';
+												
+											/* email commented				
+
+											$to = $_POST['user_email'];
+											$subject = $_SERVER['HTTP_HOST']." Email Varification Link";
+
+											$message = '
+											Hi Dear,
+
+											Please click on this link to verify your email on '.$_SERVER['HTTP_HOST'].' (Digital Visiting Card).<br><br><br>
+											<a href="https://'.$_SERVER['HTTP_HOST'].'/panel/login/verify.php?email='.$_POST['user_email'].'&token='.$token.'" style="background: #00a1ff;   color: white;   padding: 10px;">Click here to verify</a><br><br><br>
+											Or click on this link to verify https://'.$_SERVER['HTTP_HOST'].'/panel/login/verify.php?email='.$_POST['user_email'].'&token='.$token.'
+
+
+											Thanks<br>
+											'.$_SERVER['HTTP_HOST'].' Team
+
+											';
+
+											// Always set content-type when sending HTML email
+											$headers = "MIME-Version: 1.0" . "\r\n";
+											$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+											// More headers
+											$headers .= 'From: Hey Digit<info@gocrd.in>' . "\r\n";
+											
+											//	echo $to .'<br>'.$message;
+											if(mail($to,$subject,$message,$headers)){
+												
+												echo '<div class="alert alert-success" id="login_en">Verification Link sent to your email '.$_POST['user_email'].'. Click on that link to verify your account.<br><a style="font-size:18px;font-weight:700;" href="https://'.$_SERVER['HTTP_HOST'].'/panel/login/login.php">Click to login</a> </div>';
+																
+																
+											}else {
+												echo '<div class="alert alert-danger">Error Email! try again</div>';
+											}*/
+										}
+											
+										}else {
+											echo '<div class="alert alert-danger" id="login_en">Account Already Created! Check your email if not verified or Login.</div>';
+										}
+									}
+								?>
 								<p>Please login with your registered email id and password to create/View your digital visiting card</p>
 								<div class="form-group mb-3">
 									<input type="text" name="user_id" placeholder="Enter Email id or Mobile Number" autocomplete="on" required class="form-control rounded-pill border-0 shadow-sm px-4">
@@ -98,111 +195,6 @@
 								<a id="login_en" href="" class="display-4 custom-size">Go Back to Login</a>
 								<br>
 							</form>
-							<?php
-
-							if(isset($_POST['login_user'])){
-								
-								$query = mysqli_query($connect,'SELECT * FROM customer_login WHERE user_email="'.$_POST['user_id'].'" OR user_contact="'.$_POST['user_id'].'" AND user_password="'.$_POST['user_password'].'" ORDER BY id DESC');
-							
-								if(mysqli_num_rows($query)>0){
-									//login function 
-									$row=mysqli_fetch_array($query);
-									
-									if($row['user_password']==$_POST['user_password'] ){
-										// logged in and form display none
-										echo '<style> form {display:none;} </style>';
-											$_SESSION['user_email']=$row['user_email'];
-											$_SESSION['user_name']=$row['user_name'];
-											$_SESSION['user_contact']=$row['user_contact'];
-											echo success('Login Success, Redirecting...');
-											echo '<meta http-equiv="refresh" content="3;URL=index.php">';
-											echo '<div class="alert alert-info">Also Please confirm your Email id, please click on the link to verify it. Check your SPAM folder also if email is not available in inbox.</div>';
-									}else {
-										echo '<div class="alert alert-danger">Password Wrong! Try Again.</div>';
-									}
-									
-								}else {
-									echo '<div class="alert alert-danger" id="register_en">User Does Not Exists. Create New Account</div>';
-								}
-							}
-	
-// register -----------------------------------------------------------------------------
-
-if(isset($_POST['register'])){
-		$query=mysqli_query($connect,'SELECT * FROM customer_login WHERE user_email="'.$_POST['user_email'].'" ');
-		if(mysqli_num_rows($query)==0){
-			
-
-					 $token=rand(100000000,99999999999);
-				$insert=mysqli_query($connect,'INSERT INTO customer_login (user_email,user_name,user_password,user_contact,user_token,user_active,sender_token) VALUES ("'.$_POST['user_email'].'","'.$_POST['user_name'].'","'.$_POST['user_password'].'","'.$_POST['user_contact'].'","'.$token.'","NO","'.$sender_token.'")');
-				
-				
-				if($insert){
-					
-				//	$_SESSION['user_email']=$_POST['user_email'];
-				//	$_SESSION['user_name']=$_POST['user_name'];
-				//	$_SESSION['user_contact']=$_POST['user_contact'];
-					// form display none
-					echo '<style> form {display:none;} </style>';
-				//	echo '<div class="alert Success">Redirecting...</div>';
-				//	echo '<meta http-equiv="refresh" content="1;URL=index.php">';
-					
-					// email script				
-// email script				
-// email script				
-// email script				
-// email script				
-// email script				
-
-				$to = $_POST['user_email'];
-$subject = $_SERVER['HTTP_HOST']." Email Varification Link";
-
- $message = '
-Hi Dear,
-
-Please click on this link to verify your email on '.$_SERVER['HTTP_HOST'].' (Digital Visiting Card).<br><br><br>
-<a href="https://'.$_SERVER['HTTP_HOST'].'/panel/login/verify.php?email='.$_POST['user_email'].'&token='.$token.'" style="background: #00a1ff;   color: white;   padding: 10px;">Click here to verify</a><br><br><br>
-Or click on this link to verify https://'.$_SERVER['HTTP_HOST'].'/panel/login/verify.php?email='.$_POST['user_email'].'&token='.$token.'
-
-
-Thanks<br>
-'.$_SERVER['HTTP_HOST'].' Team
-
-';
-
-						// Always set content-type when sending HTML email
-						$headers = "MIME-Version: 1.0" . "\r\n";
-						$headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-
-						// More headers
-						$headers .= 'From: Hey Digit<info@gocrd.in>' . "\r\n";
-						
-					//	echo $to .'<br>'.$message;
-						if(mail($to,$subject,$message,$headers)){
-						    
-							echo '<div class="alert alert-success" id="login_en">Verification Link sent to your email '.$_POST['user_email'].'. Click on that link to verify your account.<br><a style="font-size:18px;font-weight:700;" href="https://'.$_SERVER['HTTP_HOST'].'/panel/login/login.php">Click to login</a> </div>';
-											
-											
-						}else {
-							echo '<div class="alert alert-danger">Error Email! try again</div>';
-						}
-// email script end 	
-// email script end 	
-// email script end 	
-// email script end 	
-// email script end 	
-// email script end 	
-// email script end 
-				}
-			
-		}else {
-			echo '<div class="alert alert-info" id="login_en">Account Already Created! Check your email if not verified or Login.</div>';
-			
-		}
-	}
-// register end -------------------------------------------------------------
-
-?>
 
 
 

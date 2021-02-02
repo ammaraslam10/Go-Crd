@@ -9,8 +9,14 @@ session_start();
 include("configs/bootstrap.php");
 include("includes/bootstrap.php");
 //include(getLanguage($settings['url'],null,null));
+if(checkUserSession()){
+	$file_url = "uploads/user/".$_SESSION['id'];
+	$to_search = "../uploads/user/".$_SESSION['id'];
+	$img_url = get_image($file_url,$to_search);
+}
 
 $a = protect($_GET['a']);
+//error_reporting(E_ALL);
 error_reporting(0);
 //echo '<script>alert("'.$a.'");</script>';
 switch($a) {
@@ -33,12 +39,19 @@ switch($a) {
 	case "edit-card": include("sources/card_edit.php"); break;
 	case "view-card-messages": include("sources/card_messages.php"); break;
 	case "image-upload": include("sources/image_upload.php"); break;
-	case "logout": 
-		unset($_SESSION['pw_uid']);
-		unset($_COOKIE['prowall_uid']);
-		setcookie("prowall_uid", "", time() - (86400 * 30), '/'); // 86400 = 1 day
+	case "home": include("sources/user_dashboard.php"); break;
+	case "logout":
+		unset($_SESSION['type']);
+		//unset($_COOKIE['pw_admin_uid']);
+		//setcookie("pw_admin_uid", "", time() - (86400 * 30), '/'); // 86400 = 1 day
 		session_unset();
 		session_destroy();
+		header("Location: $settings[url]"); 
+		//unset($_SESSION['pw_uid']);
+		//unset($_COOKIE['prowall_uid']);
+		//setcookie("prowall_uid", "", time() - (86400 * 30), '/'); // 86400 = 1 day
+		//session_unset();
+		//session_destroy();
 		header("Location: $settings[url]");
 	break;
 	default: include("sources/card_view.php"); break;

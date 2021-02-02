@@ -78,6 +78,14 @@ function checkAdminSession() {
 	}
 }
 
+function checkUserSession() {
+	if(isset($_SESSION['type']) && $_SESSION['type']=="user") {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 function isValidUsername($str) {
     return preg_match('/^[a-zA-Z0-9-_]+$/',$str);
 }

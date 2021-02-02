@@ -2,7 +2,6 @@
 
 <?php
 include('includes/default_array_lists.php');
-error_reporting(0);
 $error = []; 
 if(isset($_POST['card_url']))
 {
@@ -52,8 +51,21 @@ if(isset($_POST['card_url']))
 	}
 	if(empty($errors)) 
 	{
-		$uid = 1; //$_SESSION['uid'] //if is admin =1, then uid = admin id;
-		$is_admin = 0; //fsdf
+        //if$uid = $_SESSION['id']; //$_SESSION['uid'] //if is admin =1, then uid = admin id;
+
+        if($_SESSION['type']=="su"){
+            $uid = -1; 
+        } 
+        else{
+            $uid = $_SESSION['id'];
+        }
+        if($_SESSION['type']=="admin" || $_SESSION['type']=="su") {
+            $is_admin = 1;
+        }
+        else{
+            $is_admin = 0;
+        }
+        
 		if(mysqli_query($db, 'insert into card (email, company, card_link, template, design, creator, user_email, is_admin) values ("'.$card_email.'", "'.$card_company_name.'","'.$card_url.'","'.$card_template.'","","'.$uid.'","'.$card_company_email.'","'.$is_admin.'")')) {
 			$id = mysqli_insert_id($db);
 			$card_logo = strtok($_SERVER['DOCUMENT_ROOT'] . '/' . $settings['path'] . $card_logo, '?');
@@ -79,6 +91,43 @@ if(isset($_POST['card_url']))
 ?>
 
 <?php include('assets/inc/template_start.php'); ?>
+<?php
+$primary_nav = array(
+    array(
+        'name'  => 'Dashboard',
+        'url'   => '.',
+        'icon'  => 'gi gi-compass',
+    ),
+    array(
+        'url'   => 'separator',
+    ),
+    array(
+        'name'  => 'Create New Card',
+        'url'   => 'create-card',
+        'icon'  => 'gi gi-compass',
+        'active'=> true
+    ),
+    array(
+        'name'  => 'My Cards',
+        'icon'  => 'fa fa-rocket',
+        'url'   => 'direct_user_card_information',
+    ),
+    array(
+        'name'  => 'Card Messages',
+        'icon'  => 'fa fa-rocket',
+        'url'   => 'view-card-messages',
+    ),
+    array(
+        'url'   => 'separator',
+    ),
+    array(
+        'name'  => 'Edit Profile',
+        'icon'  => 'fa fa-rocket',
+        'url'   => 'edit_profile',
+    ),
+    
+);
+?>
 <?php include('assets/inc/page_head.php'); ?>
 
 <link href="<?php echo $settings['url_assets']; ?>libs/bootstrap-tagsinput.css" rel="stylesheet">

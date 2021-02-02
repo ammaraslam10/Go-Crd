@@ -1,13 +1,29 @@
 <?php include('assets/inc/config.php'); ?>
 
 <?php
+
+
 if(!isset($_GET['b'])) {
-	exit;
+    header("Location: home");
+    exit;
 }
 include('includes/default_array_lists.php');
 $error = []; 
-$uid = 1;
-$is_admin = 0;
+
+
+if($_SESSION['type']=="su"){
+    $uid = -1; 
+} 
+else{
+    $uid = $_SESSION['id'];
+}
+if($_SESSION['type']=="admin" || $_SESSION['type']=="su") {
+    $is_admin = 1;
+}
+else{
+    $is_admin = 0;
+}
+
 $id = clean($db, intval($_GET['b']));
 $data = mysqli_fetch_array(mysqli_query($db, 'select * from card where id='.$id));
 if(!isset($data['id'])) {
@@ -21,6 +37,43 @@ $template['header_link'] = 'Messages - '.ucfirst($data['card_link']);
 ?>
 
 <?php include('assets/inc/template_start.php'); ?>
+<?php
+$primary_nav = array(
+    array(
+        'name'  => 'Dashboard',
+        'url'   => '.',
+        'icon'  => 'gi gi-compass',
+    ),
+    array(
+        'url'   => 'separator',
+    ),
+    array(
+        'name'  => 'Create New Card',
+        'url'   => 'create-card',
+        'icon'  => 'gi gi-compass',
+        'active'=> true
+    ),
+    array(
+        'name'  => 'My Cards',
+        'icon'  => 'fa fa-rocket',
+        'url'   => 'direct_user_card_information',
+    ),
+    array(
+        'name'  => 'Card Messages',
+        'icon'  => 'fa fa-rocket',
+        'url'   => 'view-card-messages',
+    ),
+    array(
+        'url'   => 'separator',
+    ),
+    array(
+        'name'  => 'Edit Profile',
+        'icon'  => 'fa fa-rocket',
+        'url'   => 'edit_profile',
+    )
+    
+);
+?>
 <?php include('assets/inc/page_head.php'); ?>
 
 <link href="<?php echo $settings['url_assets']; ?>libs/bootstrap-tagsinput.css" rel="stylesheet">

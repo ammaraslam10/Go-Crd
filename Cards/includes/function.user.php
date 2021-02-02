@@ -89,6 +89,23 @@ function UserAlreadyExists($email) {
 	}  
 }
 
+function UserAlreadyExistsContact($contact) {
+	global $db;
+	$query = $db->query("SELECT * FROM user WHERE contact='$contact'");
+	if($query->num_rows>0) {
+		// user with this email address is exists
+		return true;
+	}
+	$query = $db->query("SELECT * FROM admin WHERE contact='$contact'");
+	if($query->num_rows>0) {
+		// user with this email address is exists
+		return true;
+	}
+	else{
+		return false;
+	}  
+}
+
 function PW_GetFieldName($id) {
 	global $db;
 	$query = $db->query("SELECT * FROM pw_gateways_fields WHERE id='$id'");

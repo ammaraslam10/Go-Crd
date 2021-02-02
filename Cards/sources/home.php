@@ -1,3 +1,17 @@
+<?php
+    if(checkSuperAdminSession()) {
+        header("Location: super_admin/");
+    }
+    
+    if(checkAdminSession()){
+        header("Location: admin/");
+    }
+    
+    if(checkUserSession()) {
+        header("Location: home");
+    }
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
